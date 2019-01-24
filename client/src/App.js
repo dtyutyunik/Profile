@@ -20,7 +20,7 @@ class App extends Component {
 
     this.state={
       profile: [],
-      bio: "Full-Stack Developer with a passion for tech, innovation, and problem solving. I possess a vast growing array of knowledge in many different frontend and backend languages, response frameworks, databases, and best code practices. Adept at creating  responsive Full-Stack CRUD websites from concept to design to deployment. Fully self-sufficient as well as thrive in collaborative group environments. I am dedicated to perfecting my craft by learning form more seasoned developers, remaining humble, and continuously making strides to learn all that i can about development.",
+      bio: "Full-Stack Developer with a passion for tech, innovation, and problem solving. I possess a vast growing array of knowledge in many different frontend and backend languages, response frameworks, databases, and best code practices. Adept at creating  responsive Full-Stack CRUD websites from concept to design to deployment. Fully self-sufficient as well as thrive in collaborative group environments. I am dedicated to perfecting my craft by learning from more seasoned developers, remaining humble, and continuously making strides to learn all that i can about development.",
       projects: [],
       skills: ["React.js", "Node.js", "Express.js", "HTML", "CSS", "LocalStorage", "Ant React Library", "Sequelize ", "PostgreSQL ", "Session-storage ", "JWT authentication", "Ruby", "Ruby on Rails", "SQL", "Java", "Javascript"],
 
@@ -157,12 +157,12 @@ async showProfile(e){
   switch(e){
     case "Accountant":
             await this.setState({
-                  bio: "Over 7 years of Financial Fund Accountant Analyst experience undertaking complex assignments, meeting tight deadlines and delivering superior performance to multi-billion dollar clientele on a daily basis. Created new automated systems, taught foreign and local clientele on the systems that are still in place as well as provided notation for future use of the software. Bringing creative concepts to life, automating processes and conversing on all levels form accountants, engineers to clients makes me a valuable asset."
+                  bio: "Over 7 years of Financial Fund Accountant Analyst experience undertaking complex assignments, meeting tight deadlines and delivering superior performance to multi-billion dollar clientele on a daily basis. Created new automated systems, taught foreign and local clientele on the systems that are still in place as well as provided notation for future use of the software. Bringing creative concepts to life, automating processes and conversing on all levels from accountants, engineers to clients makes me a valuable asset."
                 });
                  break;
     case "Developer":
             await this.setState({
-                bio: "Full-Stack Developer with a passion for tech, innovation, and problem solving. I possess a vast growing array of knowledge in many different frontend and backend languages, response frameworks, databases, and best code practices. Adept at creating  responsive Full-Stack CRUD websites from concept to design to deployment. Fully self-sufficient as well as thrive in collaborative group environments. I am dedicated to perfecting my craft by learning form more seasoned developers, remaining humble, and continuously making strides to learn all that i can about development."
+                bio: "Full-Stack Developer with a passion for tech, innovation, and problem solving. I possess a vast growing array of knowledge in many different frontend and backend languages, response frameworks, databases, and best code practices. Adept at creating  responsive Full-Stack CRUD websites from concept to design to deployment. Fully self-sufficient as well as thrive in collaborative group environments. I am dedicated to perfecting my craft by learning from more seasoned developers, remaining humble, and continuously making strides to learn all that i can about development."
 
                 });
 
