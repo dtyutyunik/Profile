@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Info from './components/profile.js';
+import Profile from './components/profile.js';
 import Projects from './components/projects.js';
 import Skillset from './components/skillset.js';
 import Contact from './components/contact.js';
-import './App.css';
 import { Layout, Menu, Icon, Avatar, Button } from 'antd';
+import './App.css';
 import ReactGA from 'react-ga';
 
 
@@ -20,15 +20,14 @@ class App extends Component {
 
     this.state={
       profile: [],
-      bio: "Full-Stack Developer with a passion for tech, innovation, and problem solving. I possess a vast growing array of knowledge in many different frontend and backend languages, response frameworks, databases, and best code practices. Adept at creating  responsive Full-Stack CRUD websites from concept to design to deployment. Fully self-sufficient as well as thrive in collaborative group environments. I am dedicated to perfecting my craft by learning from more seasoned developers, remaining humble, and continuously making strides to learn all that i can about development.",
-      projects: [],
-      skills: ["React.js", "Node.js", "Express.js", "HTML", "CSS", "LocalStorage", "Ant React Library", "Sequelize ", "PostgreSQL ", "Session-storage ", "JWT authentication", "Ruby", "Ruby on Rails", "SQL", "Java", "Javascript"],
+      bio: "Full-Stack Developer with a passion for tech, innovation, and problem solving. I possess a vast growing array of knowledge in many different frontend and backend languages, response frameworks, databases, and best code practices. Adept at creating  responsive Full-Stack CRUD websites from concept to design to deployment. My background as a Financial Fund Accountant Analyst, has given me the skills of undertaking complex assignments, meeting tight deadlines and delivering superior performance to multi-billion dollar clientele on a daily basis.",
+      skills: ["React.js", "Node.js", "Express.js", "HTML", "CSS", "LocalStorage", "Ant React Library", "Sequelize ", "PostgreSQL ", "Session-storage ", "JWT", "Ruby", "Ruby on Rails", "SQL", "Java", "Javascript", "Phaser.js"],
 
       view: ""
     }
 
 
-this.showProfile=this.showProfile.bind(this);
+// this.showProfile=this.showProfile.bind(this);
 this.projectData=this.projectData.bind(this);
 this.handleMenuClick=this.handleMenuClick.bind(this);
 this.initializeReactGA=this.initializeReactGA.bind(this);
@@ -110,10 +109,10 @@ this.setState({
 handleMenuClick(e){
 
   switch(e.key|| e){
-    case "info":
+    case "Info":
 
     this.setState({
-      view: <Info
+      view: <Profile
         showProfile={this.showProfile}
         data={this.state.bio}
         backgroundImage={this.state.backgroundImage}
@@ -123,10 +122,18 @@ handleMenuClick(e){
 
     break;
 
-    case "Skillset":
+    case "Profile":
 
     this.setState({
-      view: <Skillset skills={this.state.skills}/>
+      view: <Profile
+        showProfile={this.showProfile}
+        data={this.state.bio}
+        
+        skills={this.state.skills}
+        />
+
+
+      // <Skillset skills={this.state.skills}/>
     });
     break;
 
@@ -144,50 +151,44 @@ handleMenuClick(e){
     });
     break;
 
-    default: break;
+    default: this.setState({view:<Profile
+      showProfile={this.showProfile}
+      data={this.state.bio}
+
+      skills={this.state.skills}
+      />});
   }
 
 }
 
 
-
-async showProfile(e){
-
-
-  switch(e){
-    case "Accountant":
-            await this.setState({
-                  bio: "Over 7 years of Financial Fund Accountant Analyst experience undertaking complex assignments, meeting tight deadlines and delivering superior performance to multi-billion dollar clientele on a daily basis. Created new automated systems, taught foreign and local clientele on the systems that are still in place as well as provided notation for future use of the software. Bringing creative concepts to life, automating processes and conversing on all levels from accountants, engineers to clients makes me a valuable asset."
-                });
-                 break;
-    case "Developer":
-            await this.setState({
-                bio: "Full-Stack Developer with a passion for tech, innovation, and problem solving. I possess a vast growing array of knowledge in many different frontend and backend languages, response frameworks, databases, and best code practices. Adept at creating  responsive Full-Stack CRUD websites from concept to design to deployment. Fully self-sufficient as well as thrive in collaborative group environments. I am dedicated to perfecting my craft by learning from more seasoned developers, remaining humble, and continuously making strides to learn all that i can about development."
-
-                });
-
-                break;
-    default:  break;
-  }
-
-    this.handleMenuClick("info");
-
-
-
-}
 
 
   render() {
 
     let {view}= this.state
     return (
+<div className="App">
 
+<nav>
 
+<a className="name">Dmitriy Tyutyunik</a>
+<div className="top">
+<a onClick={()=>this.handleMenuClick("Profile")}>About Me</a>
+<a onClick={()=>this.handleMenuClick("Projects")}>Projects</a>
+<a onClick={()=>this.handleMenuClick("Contact")}>Contact</a>
+</div>
+</nav>
+
+      {view}
+      </div>
+
+/*
 <div>
 
 
  <Layout>
-        <Menu theme="dark" className="menu"
+        <Menu className="menu"
           onClick={this.handleMenuClick}
           >
 
@@ -267,13 +268,10 @@ async showProfile(e){
         </Layout>
 
 <Layout>
-{view}
-</Layout>
+*/
 
 
 
-
-</div>
 
     );
   }
@@ -282,3 +280,5 @@ async showProfile(e){
 
 
 export default App;
+
+// <a onClick={()=>this.handleMenuClick("Info")}>Home</a>

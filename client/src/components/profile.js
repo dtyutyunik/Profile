@@ -1,34 +1,29 @@
 import React from 'react';
 import { Button } from 'antd';
+import Skillset from './skillset.js';
 
-function Info(props){
+function Profile(props){
 
   return(
     <div className="profile">
 
+<div className="aboutMe">
 
-    <Button
-
-      value="large"
-       id="Developer"
-       style={{ margin: 10 }}
-       onClick={()=>props.showProfile("Developer")}
-       >
-       Developer
-     </Button>
-
-  <Button
-    value="large"
-    id="Accountant"
-    onClick={()=>props.showProfile("Accountant")}
-  >
-    Accountant
-  </Button>
+<div className="img">
+<img src={ require("../media/dima.png")}/>
+</div>
 
 
-        <div className="profileInfo">
-       <p>{props.data}</p>
+
+       <div className="text">
+<div>
+
+</div>
+       {props.data}
+
+       </div>
         </div>
+      <div className="skillInfo">  <Skillset skills={props.skills}/></div>
     </div>
 
 
@@ -36,4 +31,4 @@ function Info(props){
   )
 }
 
-export default Info;
+export default Profile;
