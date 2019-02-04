@@ -5,8 +5,8 @@ import { Tag } from 'antd';
 export default function ProjectTools(props){
 
   return(
-    <div>{props.tools.map(e=>{
-        return <Tag  className="projecTags" color="#00000">{e}</Tag>
+    <div className="tools">{props.tools.map(e=>{
+        return <Tag key={e} className="projecTags" color="#00000">{e}</Tag>
     })}</div>
 
   )

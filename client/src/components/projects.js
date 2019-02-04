@@ -5,7 +5,7 @@ import ProjectTools from './projectTools.js';
 
 export default function Projects(props){
   return(
-    <div >
+    <div className="projectsContainer">
 
 
         {props.data.map((e,index)=>{
@@ -15,6 +15,7 @@ export default function Projects(props){
             <Card className="projects"
                title={e.name}
                bordered={true}
+               
       >
 
 

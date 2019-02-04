@@ -1,20 +1,42 @@
 @import '~antd/dist/antd.css';
 
 
- html {
-  background-image: url("./media/back4.jpg");
-  /* background-size: cover; */
-  /* width: 100vw; */
+body,html{
   height: 100%;
+  width: 100%;
 }
 
 
 
 
+body{
+  background-image: url("./media/back4.jpg");
+  background-size: cover;
+  height: auto;
+  width: 100vw;
+
+}
+
+.App{
+  text-align: center;
+}
+  /* padding: 1.5em;
+  text-align: center;
+  background-image: url("./media/back4.jpg");
+  width: 100vw;
+  min-height: 100vh;
+  max-height: auto;
+  background-repeat: no-repeat;
+
+  background-size: cover;
+  background-position: center; */
+
+
+
+
 nav{
-  /* background: black; */
   opacity: .8;
-  /* width: 100vw; */
+
 }
 
 
@@ -82,6 +104,7 @@ font-weight: bold;
   text-align: center;
 
   overflow: hidden;
+
   color:white;
 }
 
@@ -137,8 +160,20 @@ h1,h2{
 }
 
 
+@media screen and (max-width: 370px){
+  nav >div> a{
+    font-size: .7em!important;
+  font-family: Raleway,sans-serif;
+  cursor: pointer;
+  padding: 10px;
+  margin: 0 10px;
+  color: white;
+  opacity: .7;
+  font-weight: bold;
+  text-transform: uppercase;
+  }
 
-
+}
 
 
 
@@ -149,10 +184,42 @@ h1,h2{
   height: 80%;
 
   }
+  /* body,html{
+    height: 100%;
+    width: 100%;
+  }
+
+
+
+
+  body{
+    background-image: url("./media/back4.jpg");
+    background-size: cover;
+    height: auto;
+    width: 100vw;
+
+  }
+
+  .App{
+    text-align: center;
+  } */
+  .App{
+    padding: 1.5em;
+    text-align: center;
+    background-image: url("./media/back4.jpg");
+    width: 100vw;
+    min-height: 100vh;
+    max-height: auto;
+    background-repeat: no-repeat;
+
+    background-size: cover;
+    background-position: center;
+
+  }
 
   nav{
     opacity: .8;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 
   }
 
@@ -172,16 +239,16 @@ h1,h2{
     text-transform: uppercase;
   }
 
-  .App{
-    padding: 1.5em;
-    text-align: center;
-    background-image: url("./media/back4.jpg");
-    background-size: cover;
-    height: 100vh;
 
+
+  .projectsContainer {
+    width: 100%;
+    height: auto;
+    /* border: 1px solid blue; */
   }
+
   .projectImages{
-    border: 1px solid green;
+    /* border: 1px solid green; */
     height: 150px;
     width: 150px;
   }
@@ -235,7 +302,7 @@ h1,h2{
       font-family: Raleway,sans-serif;
 
 
-     
+
 
   }
 
@@ -332,6 +399,25 @@ background: #3C769F;
     width: 100%;
     border-radius: 20%;
   }
+.projectImages{
+  /* border: 1px solid green; */
+  width: 250px;
+  height: 200px;
+}
+  .ant-card-body{
+      text-align: center;
+      /* border: 1px solid red; */
+      /* width: 200px; */
+
+      /* height: 200px; */
+      /* width: 200px; */
+      /* margin: 0 auto; */
+      /* margin-left: 12%; */
+      /* margin-right: 12%; */
+      color:white;
+      opacity: .9;
+
+  }
 
 }
 
@@ -343,14 +429,7 @@ height: 100%;
 
 }
 
-.App{
-  padding: 1.5em;
-  text-align: center;
-  background-image: url("./media/back4.jpg");
-  background-size: cover;
-  /* width: 100vw; */
-  height: 100vh;
-}
+
 
 .ant-menu-item.image > img{
   width: 15%;
@@ -364,7 +443,7 @@ height: 100%;
 }
 
 .projectImages{
-  border: 1px solid green;
+  /* border: 1px solid green; */
   height: 350px;
   width: 350px;
 }
@@ -400,7 +479,7 @@ height: 100%;
 
 .img > img{
   width: 55%;
-  border: 1px solid white;
+  /* border: 1px solid white; */
   /* border: 1px solid black; */
   border-radius: 50%;
   justify-self: center;
