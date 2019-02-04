@@ -20,7 +20,7 @@ class App extends Component {
 
     this.state={
       profile: [],
-      bio: "Full-Stack Developer with a passion for tech, innovation, and problem solving. I possess a vast growing array of knowledge in many different frontend and backend languages, response frameworks, databases, and best code practices. Adept at creating  responsive Full-Stack CRUD websites from concept to design to deployment. My background as a Financial Fund Accountant Analyst, has given me the skills of undertaking complex assignments, meeting tight deadlines and delivering superior performance to multi-billion dollar clientele on a daily basis.",
+      bio: "Full-Stack Developer with a passion for tech, innovation, and problem solving. I possess a vast growing array of knowledge in many different frontend and backend languages, response frameworks, databases, and best code practices. Adept at creating  responsive Full-Stack CRUD websites from concept to design to deployment. Managed agile teams to plan, design, develop and deploy responsive full-stack applications with React, HTML, CSS, Grid, Flexbox as front-end, Express and Ruby on Rails as back-end. In addition, my background as a Financial Fund Accountant Analyst, has given me the skills of undertaking complex assignments, meeting tight deadlines and delivering superior performance to multi-billion dollar clientele on a daily basis.",
       skills: ["React.js", "Node.js", "Express.js", "HTML", "CSS", "LocalStorage", "Ant React Library", "Sequelize ", "PostgreSQL ", "Session-storage ", "JWT", "Ruby", "Ruby on Rails", "SQL", "Java", "Javascript", "Phaser.js", "Redux"],
 
       view: ""
