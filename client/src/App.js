@@ -18,6 +18,11 @@ function App() {
   const [activeProject, setActiveProject] = useState(null);
   const [careerAct, setCareerAct] = useState(0);
 
+  const navigate = (id) => {
+    setActiveDestination(id);
+    if (id !== 'workshop') setActiveProject(null);
+  };
+
   const activeData = useMemo(
     () => WORLD_DESTINATIONS.find((item) => item.id === activeDestination) || null,
     [activeDestination]
@@ -27,7 +32,7 @@ function App() {
     <main className="portfolio-shell">
       <PortfolioWorld
         activeDestination={activeDestination}
-        onSelectDestination={(id) => { setActiveDestination(id); if (id !== 'workshop') setActiveProject(null); }}
+        onSelectDestination={navigate}
         projects={WORKSHOP_PROJECTS}
         onSelectProject={setActiveProject}
       />
@@ -35,7 +40,7 @@ function App() {
       <WorldHud
         destinations={WORLD_DESTINATIONS}
         activeDestination={activeDestination}
-        onNavigate={setActiveDestination}
+        onNavigate={navigate}
       />
 
       <section className="hero-copy" aria-label="Introduction">
@@ -46,7 +51,7 @@ function App() {
           the story behind the work.
         </p>
         <div className="hero-actions">
-          <button type="button" onClick={() => setActiveDestination('workshop')}>
+          <button type="button" onClick={() => navigate('workshop')}>
             Enter the workshop
           </button>
           <a href="mailto:dmitriy.tyutyunik@gmail.com">Contact</a>
@@ -73,7 +78,7 @@ function App() {
 
       <DetailPanel
         destination={activeData}
-        onClose={() => setActiveDestination('home')}
+        onClose={() => navigate('home')}
       />
 
       <div className="world-hint" aria-hidden="true">
