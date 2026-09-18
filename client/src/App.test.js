@@ -13,6 +13,9 @@ test('renders the portfolio shell and primary navigation', () => {
 
   expect(screen.getByRole('heading', { name: /dmitriy tyutyunik/i })).toBeInTheDocument();
   expect(screen.getByTestId('portfolio-world')).toBeInTheDocument();
+  expect(screen.getByText('14+')).toBeInTheDocument();
+  expect(screen.getByText('60%')).toBeInTheDocument();
+  expect(screen.getByText('85%')).toBeInTheDocument();
   expect(within(nav).getByRole('button', { name: /^workshop$/i })).toBeInTheDocument();
   expect(within(nav).getByRole('button', { name: /^cinema$/i })).toBeInTheDocument();
   expect(within(nav).getByRole('button', { name: /^traveler$/i })).toBeInTheDocument();
