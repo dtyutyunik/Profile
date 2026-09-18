@@ -43,7 +43,7 @@ function App() {
         onNavigate={navigate}
       />
 
-      <section className="hero-copy" aria-label="Introduction">
+      <section className={`hero-copy ${activeDestination !== 'home' ? 'hero-copy--compact' : ''}`} aria-label="Introduction">
         <p className="eyebrow">Senior Frontend + AI Product Engineer</p>
         <h1>Dmitriy Tyutyunik</h1>
         <p>
