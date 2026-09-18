@@ -1,11 +1,18 @@
+export const CAREER_METRICS = [
+  { value: '14+', label: 'Years across finance + software' },
+  { value: '7+', label: 'Years React / TypeScript' },
+  { value: '60%', label: 'Less troubleshooting time' },
+  { value: '85%', label: 'Faster issue resolution' }
+];
+
 export const WORLD_DESTINATIONS = [
   {
     id: 'cinema',
     navLabel: 'Cinema',
     title: 'Career Cinema',
-    kicker: 'The story so far',
+    kicker: '14+ years across finance + software',
     summary:
-      'A short, skippable career film moving from finance into engineering, Fubo, and AI product work.',
+      'A skippable career film moving from analytical finance into engineering, Fubo, and AI product work, including operational tools that cut troubleshooting time by 60% and issue resolution time by as much as 85%.',
     position: [-6, 0, -3],
     camera: [-9.5, 5.6, 3.5],
     target: [-6, 1, -3]
@@ -14,9 +21,9 @@ export const WORLD_DESTINATIONS = [
     id: 'workshop',
     navLabel: 'Workshop',
     title: 'Tinkerer Workshop',
-    kicker: 'Projects + experiments',
+    kicker: '7+ years React / TypeScript',
     summary:
-      'The main workbench: ReliveInColor, MCP tools, agent workflows, RAG systems, and products built from messy ideas.',
+      'The main workbench: ReliveInColor, MCP tools, agent workflows, RAG systems, real-time dashboards, and products built from messy ideas.',
     position: [0, 0, 0],
     camera: [5.5, 4.8, 7.2],
     target: [0, 1, 0]
