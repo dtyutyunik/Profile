@@ -72,12 +72,12 @@ function App() {
       )}
 
       <ProjectPanel
-        project={WORKSHOP_PROJECTS.find((project) => project.id === activeProject) || null}
+        project={activeDestination === 'workshop' ? WORKSHOP_PROJECTS.find((project) => project.id === activeProject) || null : null}
         onClose={() => setActiveProject(null)}
       />
 
       <DetailPanel
-        destination={activeData}
+        destination={(activeProject || ['cinema', 'traveler', 'publisher'].includes(activeDestination)) ? null : activeData}
         onClose={() => navigate('home')}
       />
 
