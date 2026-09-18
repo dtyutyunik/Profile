@@ -4,13 +4,16 @@ import WorldHud from './components/WorldHud';
 import DetailPanel from './components/DetailPanel';
 import CareerMetrics from './components/CareerMetrics';
 import ProjectPanel from './components/ProjectPanel';
+import CareerReel from './components/CareerReel';
 import PortfolioWorld from './world/PortfolioWorld';
 import { CAREER_METRICS, WORLD_DESTINATIONS } from './data/worldData';
 import { WORKSHOP_PROJECTS } from './data/workshopProjects';
+import { CAREER_ACTS } from './data/careerActs';
 
 function App() {
   const [activeDestination, setActiveDestination] = useState('home');
   const [activeProject, setActiveProject] = useState(null);
+  const [careerAct, setCareerAct] = useState(0);
 
   const activeData = useMemo(
     () => WORLD_DESTINATIONS.find((item) => item.id === activeDestination) || null,
@@ -48,6 +51,10 @@ function App() {
       </section>
 
       {activeDestination === 'home' && <CareerMetrics metrics={CAREER_METRICS} />}
+
+      {activeDestination === 'cinema' && (
+        <CareerReel acts={CAREER_ACTS} activeIndex={careerAct} onChange={setCareerAct} />
+      )}
 
       <ProjectPanel
         project={WORKSHOP_PROJECTS.find((project) => project.id === activeProject) || null}
