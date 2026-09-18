@@ -6,7 +6,10 @@ function ProjectPanel({ project, onClose }) {
       <h3>{project.title}</h3>
       <strong>{project.metric}</strong>
       <p>{project.description}</p>
-      <button type="button" onClick={onClose}>Close project</button>
+      <div className="project-panel__actions">
+        {project.href && <a href={project.href} target="_blank" rel="noreferrer">{project.linkLabel || 'Visit project'}</a>}
+        <button type="button" onClick={onClose}>Close project</button>
+      </div>
     </aside>
   );
 }
