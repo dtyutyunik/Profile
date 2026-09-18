@@ -386,3 +386,7 @@
   .showcase-panel { max-height:36svh; }
   .career-reel { max-height:35svh; overflow:auto; }
 }
+
+.project-panel__actions { display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; }
+.project-panel__actions a { min-height:44px; display:inline-flex; align-items:center; padding:.55rem .8rem; border-radius:999px; background:#f4c979; color:#15201d; font-weight:700; text-decoration:none; font-size:.78rem; }
+:focus-visible { outline:3px solid #f4c979; outline-offset:3px; }
