@@ -8,6 +8,7 @@ function ShowcasePanel({ title, eyebrow, items }) {
           <article key={item.title}>
             <strong>{item.title}</strong>
             <p>{item.text}</p>
+            {item.href && <a href={item.href} target="_blank" rel="noreferrer">{item.linkLabel || 'Explore'}</a>}
           </article>
         ))}
       </div>
