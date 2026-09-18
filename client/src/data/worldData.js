@@ -1,6 +1,6 @@
 export const CAREER_METRICS = [
   { value: '14+', label: 'Years across finance + software' },
-  { value: '7+', label: 'Years React / TypeScript' },
+  { value: '7', label: 'Years at Fubo since July 2019' },
   { value: '60%', label: 'Less troubleshooting time' },
   { value: '85%', label: 'Faster issue resolution' }
 ];
