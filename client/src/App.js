@@ -3,11 +3,14 @@ import './App.css';
 import WorldHud from './components/WorldHud';
 import DetailPanel from './components/DetailPanel';
 import CareerMetrics from './components/CareerMetrics';
+import ProjectPanel from './components/ProjectPanel';
 import PortfolioWorld from './world/PortfolioWorld';
 import { CAREER_METRICS, WORLD_DESTINATIONS } from './data/worldData';
+import { WORKSHOP_PROJECTS } from './data/workshopProjects';
 
 function App() {
   const [activeDestination, setActiveDestination] = useState('home');
+  const [activeProject, setActiveProject] = useState(null);
 
   const activeData = useMemo(
     () => WORLD_DESTINATIONS.find((item) => item.id === activeDestination) || null,
@@ -18,7 +21,9 @@ function App() {
     <main className="portfolio-shell">
       <PortfolioWorld
         activeDestination={activeDestination}
-        onSelectDestination={setActiveDestination}
+        onSelectDestination={(id) => { setActiveDestination(id); if (id !== 'workshop') setActiveProject(null); }}
+        projects={WORKSHOP_PROJECTS}
+        onSelectProject={setActiveProject}
       />
 
       <WorldHud
@@ -43,6 +48,11 @@ function App() {
       </section>
 
       {activeDestination === 'home' && <CareerMetrics metrics={CAREER_METRICS} />}
+
+      <ProjectPanel
+        project={WORKSHOP_PROJECTS.find((project) => project.id === activeProject) || null}
+        onClose={() => setActiveProject(null)}
+      />
 
       <DetailPanel
         destination={activeData}
