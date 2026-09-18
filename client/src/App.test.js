@@ -41,3 +41,13 @@ test('career cinema is skippable act by act', async () => {
   await userEvent.click(screen.getByRole('button', { name: /next act/i }));
   expect(screen.getByRole('heading', { name: /becoming an engineer/i })).toBeInTheDocument();
 });
+
+test('traveler and publisher destinations expose their stories', async () => {
+  render(<App />);
+  const nav = screen.getByRole('navigation', { name: /quick navigation/i });
+  await userEvent.click(within(nav).getByRole('button', { name: /^traveler$/i }));
+  expect(screen.getByText(/experience becomes context/i)).toBeInTheDocument();
+  expect(screen.getByText(/60\+ countries/i)).toBeInTheDocument();
+  await userEvent.click(within(nav).getByRole('button', { name: /^publisher$/i }));
+  expect(screen.getByText(/ai-assisted publishing/i)).toBeInTheDocument();
+});
