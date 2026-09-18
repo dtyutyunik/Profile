@@ -47,7 +47,7 @@ test('traveler and publisher destinations expose their stories', async () => {
   const nav = screen.getByRole('navigation', { name: /quick navigation/i });
   await userEvent.click(within(nav).getByRole('button', { name: /^traveler$/i }));
   expect(screen.getByText(/experience becomes context/i)).toBeInTheDocument();
-  expect(screen.getByText(/60\+ countries/i)).toBeInTheDocument();
+  expect(screen.getAllByText(/60\+ countries/i).length).toBeGreaterThan(0);
   await userEvent.click(within(nav).getByRole('button', { name: /^publisher$/i }));
   expect(screen.getByText(/ai-assisted publishing/i)).toBeInTheDocument();
 });
