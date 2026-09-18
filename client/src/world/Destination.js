@@ -110,6 +110,13 @@ function Traveler({ selected, onSelect }) {
         <torusGeometry args={[1.45, 0.07, 10, 48]} />
         <meshStandardMaterial color="#d4c08a" metalness={0.35} />
       </mesh>
+      {[-1.3, 0, 1.3].map((x, index) => (
+        <group key={x} position={[x, .65, 1.15]} rotation={[0, index === 1 ? 0 : (index - 1) * .35, 0]}>
+          <mesh castShadow position={[0, .45, 0]}><cylinderGeometry args={[.07,.09,.9,7]} /><meshStandardMaterial color="#5b4530" /></mesh>
+          <mesh castShadow position={[.32, .76, 0]}><boxGeometry args={[.72,.22,.08]} /><meshStandardMaterial color={['#d49a5f','#d9c284','#8bb2a5'][index]} /></mesh>
+        </group>
+      ))}
+      <mesh castShadow position={[-1.45,.42,-.9]}><boxGeometry args={[.62,.7,.34]} /><meshStandardMaterial color="#b66b4e" /></mesh>
       <Label>Traveler Overlook</Label>
     </group>
   );
@@ -134,6 +141,16 @@ function Publisher({ selected, onSelect }) {
           />
         </mesh>
       ))}
+      <group position={[0,.72,.85]}>
+        <mesh castShadow><boxGeometry args={[2.4,.12,.62]} /><meshStandardMaterial color="#6c4b35" /></mesh>
+        {[-.85,-.42,0,.42,.85].map((x,index) => (
+          <mesh key={x} castShadow position={[x,.35,0]} rotation={[0,0,(index-2)*.04]}>
+            <boxGeometry args={[.25,.62,.32]} />
+            <meshStandardMaterial color={['#d6a75f','#9b6573','#5c8b88','#b9a4d5','#d07d58'][index]} />
+          </mesh>
+        ))}
+      </group>
+      <mesh position={[0,1.78,1.46]}><boxGeometry args={[1.55,.32,.08]} /><meshStandardMaterial color="#e6c984" emissive="#9b6f38" emissiveIntensity={.18} /></mesh>
       <Label>Publisher House</Label>
     </group>
   );
