@@ -1,9 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import App from './App';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+jest.mock('./world/PortfolioWorld', () => function MockPortfolioWorld() {
+  return <div data-testid="portfolio-world">3D world</div>;
+});
+
+test('renders the portfolio shell and primary navigation', () => {
+  render(<App />);
+
+  expect(screen.getByRole('heading', { name: /dmitriy tyutyunik/i })).toBeInTheDocument();
+  expect(screen.getByTestId('portfolio-world')).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /workshop/i })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /cinema/i })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /traveler/i })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /publisher/i })).toBeInTheDocument();
+});
+
+test('opens destination details from quick navigation and closes them', async () => {
+  render(<App />);
+
+  await userEvent.click(screen.getByRole('button', { name: /workshop/i }));
+  expect(screen.getByRole('heading', { name: /tinkerer workshop/i })).toBeInTheDocument();
+
+  await userEvent.click(screen.getByRole('button', { name: /back to overview/i }));
+  expect(screen.queryByRole('heading', { name: /tinkerer workshop/i })).not.toBeInTheDocument();
 });
