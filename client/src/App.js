@@ -2,8 +2,9 @@ import { useMemo, useState } from 'react';
 import './App.css';
 import WorldHud from './components/WorldHud';
 import DetailPanel from './components/DetailPanel';
+import CareerMetrics from './components/CareerMetrics';
 import PortfolioWorld from './world/PortfolioWorld';
-import { WORLD_DESTINATIONS } from './data/worldData';
+import { CAREER_METRICS, WORLD_DESTINATIONS } from './data/worldData';
 
 function App() {
   const [activeDestination, setActiveDestination] = useState('home');
@@ -40,6 +41,8 @@ function App() {
           <a href="mailto:dmitriy.tyutyunik@gmail.com">Contact</a>
         </div>
       </section>
+
+      {activeDestination === 'home' && <CareerMetrics metrics={CAREER_METRICS} />}
 
       <DetailPanel
         destination={activeData}
