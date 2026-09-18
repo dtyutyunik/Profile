@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function Robot({ position, scale = 1 }) {
   return (
@@ -28,17 +28,24 @@ function Robot({ position, scale = 1 }) {
 
 function AmbientLife() {
   const plane = useRef();
+  const [reducedMotion, setReducedMotion] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setReducedMotion(media.matches);
+    sync(); media.addEventListener?.('change', sync);
+    return () => media.removeEventListener?.('change', sync);
+  }, []);
   const beacon = useRef();
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
-    if (plane.current) {
+    if (!reducedMotion && plane.current) {
       plane.current.position.x = Math.sin(t * 0.16) * 11;
       plane.current.position.z = Math.cos(t * 0.16) * 8;
       plane.current.position.y = 6.5 + Math.sin(t * 0.35) * 0.35;
       plane.current.rotation.y = -t * 0.16 + Math.PI / 2;
     }
-    if (beacon.current) {
+    if (!reducedMotion && beacon.current) {
       beacon.current.rotation.y = t * 0.45;
     }
   });
