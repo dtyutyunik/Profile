@@ -21,6 +21,21 @@ function Label({ children }) {
   );
 }
 
+function Workbench({ x, z, color }) {
+  return (
+    <group position={[x, 1.2, z]}>
+      <mesh castShadow>
+        <boxGeometry args={[0.9, 0.12, 0.48]} />
+        <meshStandardMaterial color="#5a3b28" />
+      </mesh>
+      <mesh castShadow position={[0, 0.3, 0]}>
+        <boxGeometry args={[0.52, 0.38, 0.08]} />
+        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.15} />
+      </mesh>
+    </group>
+  );
+}
+
 function Workshop({ selected, onSelect }) {
   return (
     <group onClick={onSelect}>
@@ -44,7 +59,10 @@ function Workshop({ selected, onSelect }) {
         <boxGeometry args={[0.8, 0.7, 0.8]} />
         <meshStandardMaterial color="#5c7c72" />
       </mesh>
-      <Label>Workshop</Label>
+      <Workbench x={-1.35} z={0.35} color="#62c6d8" />
+      <Workbench x={0} z={0.35} color="#d29b55" />
+      <Workbench x={1.35} z={0.35} color="#8cc27e" />
+      <Label>Tinkerer Workshop</Label>
     </group>
   );
 }
@@ -65,6 +83,12 @@ function Cinema({ selected, onSelect }) {
           <boxGeometry args={[0.6, 0.5, 0.6]} />
           <meshStandardMaterial color="#c35f4d" />
         </mesh>
+      ))}
+      {[-1.2, -0.4, 0.4, 1.2].map((x) => (
+        <group key={x} position={[x, 1.48, 0.45]} scale={0.45}>
+          <mesh castShadow><sphereGeometry args={[0.35, 12, 10]} /><meshStandardMaterial color="#e7e2d8" /></mesh>
+          <mesh position={[0, 0, 0.32]}><boxGeometry args={[0.42, 0.14, 0.03]} /><meshBasicMaterial color="#18262b" /></mesh>
+        </group>
       ))}
       <Label>Career Cinema</Label>
     </group>
