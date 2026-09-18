@@ -4,9 +4,10 @@ import CameraRig from './CameraRig';
 import Destination from './Destination';
 import WorldGround from './WorldGround';
 import AmbientLife from './AmbientLife';
+import ProjectExhibit from './ProjectExhibit';
 import { WORLD_DESTINATIONS } from '../data/worldData';
 
-function PortfolioWorld({ activeDestination, onSelectDestination }) {
+function PortfolioWorld({ activeDestination, onSelectDestination, projects = [], onSelectProject }) {
   return (
     <Canvas
       className="world-canvas"
@@ -28,6 +29,14 @@ function PortfolioWorld({ activeDestination, onSelectDestination }) {
         <Destination key={destination.id} destination={destination}
           selected={activeDestination === destination.id}
           onSelect={onSelectDestination} />
+      ))}
+      {projects.map((project, index) => (
+        <ProjectExhibit
+          key={project.id}
+          project={project}
+          position={[-1.65 + (index % 2) * 3.3, 0, -0.85 + Math.floor(index / 2) * 1.65]}
+          onSelect={onSelectProject}
+        />
       ))}
       <AmbientLife />
       <ContactShadows position={[0, 0.03, 0]} opacity={0.25} scale={28} blur={2.5} far={8} />
