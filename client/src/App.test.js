@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 
@@ -9,18 +9,21 @@ jest.mock('./world/PortfolioWorld', () => function MockPortfolioWorld() {
 test('renders the portfolio shell and primary navigation', () => {
   render(<App />);
 
+  const nav = screen.getByRole('navigation', { name: /quick navigation/i });
+
   expect(screen.getByRole('heading', { name: /dmitriy tyutyunik/i })).toBeInTheDocument();
   expect(screen.getByTestId('portfolio-world')).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: /workshop/i })).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: /cinema/i })).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: /traveler/i })).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: /publisher/i })).toBeInTheDocument();
+  expect(within(nav).getByRole('button', { name: /^workshop$/i })).toBeInTheDocument();
+  expect(within(nav).getByRole('button', { name: /^cinema$/i })).toBeInTheDocument();
+  expect(within(nav).getByRole('button', { name: /^traveler$/i })).toBeInTheDocument();
+  expect(within(nav).getByRole('button', { name: /^publisher$/i })).toBeInTheDocument();
 });
 
 test('opens destination details from quick navigation and closes them', async () => {
   render(<App />);
 
-  await userEvent.click(screen.getByRole('button', { name: /workshop/i }));
+  const nav = screen.getByRole('navigation', { name: /quick navigation/i });
+  await userEvent.click(within(nav).getByRole('button', { name: /^workshop$/i }));
   expect(screen.getByRole('heading', { name: /tinkerer workshop/i })).toBeInTheDocument();
 
   await userEvent.click(screen.getByRole('button', { name: /back to overview/i }));
