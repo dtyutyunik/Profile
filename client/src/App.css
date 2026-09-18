@@ -217,3 +217,99 @@
     animation-iteration-count: 1 !important;
   }
 }
+
+.career-metrics {
+  position: absolute;
+  z-index: 12;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 4.75rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  background: rgba(12, 20, 18, 0.8);
+  backdrop-filter: blur(14px);
+}
+
+.career-metric {
+  min-width: 0;
+  padding: 0.55rem 0.65rem;
+}
+
+.career-metric strong,
+.career-metric span {
+  display: block;
+}
+
+.career-metric strong {
+  color: #f4c979;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.career-metric span {
+  margin-top: 0.3rem;
+  color: rgba(247, 244, 235, 0.66);
+  font-size: 0.68rem;
+  line-height: 1.25;
+}
+
+@media (min-width: 761px) {
+  .career-metrics {
+    left: 2rem;
+    right: auto;
+    bottom: 1.5rem;
+    width: min(42rem, calc(100vw - 4rem));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .career-metric strong {
+    font-size: 1.45rem;
+  }
+
+  .career-metric span {
+    font-size: 0.74rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .portfolio-shell {
+    min-height: 100svh;
+    height: 100svh;
+  }
+
+  .hero-copy {
+    top: 0.6rem;
+    left: 0.6rem;
+    width: calc(100vw - 1.2rem);
+    padding: 0.9rem;
+  }
+
+  .hero-copy .eyebrow {
+    font-size: 0.64rem;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(1.85rem, 9vw, 2.4rem);
+  }
+
+  .hero-copy > p:not(.eyebrow) {
+    margin-top: 0.55rem;
+    font-size: 0.86rem;
+    line-height: 1.4;
+  }
+
+  .hero-actions {
+    margin-top: 0.7rem;
+  }
+
+  .hero-actions button,
+  .hero-actions a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
