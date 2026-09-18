@@ -5,10 +5,13 @@ import DetailPanel from './components/DetailPanel';
 import CareerMetrics from './components/CareerMetrics';
 import ProjectPanel from './components/ProjectPanel';
 import CareerReel from './components/CareerReel';
+import ShowcasePanel from './components/ShowcasePanel';
 import PortfolioWorld from './world/PortfolioWorld';
 import { CAREER_METRICS, WORLD_DESTINATIONS } from './data/worldData';
 import { WORKSHOP_PROJECTS } from './data/workshopProjects';
 import { CAREER_ACTS } from './data/careerActs';
+import { TRAVEL_HIGHLIGHTS } from './data/travelHighlights';
+import { PUBLISHING_HIGHLIGHTS } from './data/publishingHighlights';
 
 function App() {
   const [activeDestination, setActiveDestination] = useState('home');
@@ -54,6 +57,13 @@ function App() {
 
       {activeDestination === 'cinema' && (
         <CareerReel acts={CAREER_ACTS} activeIndex={careerAct} onChange={setCareerAct} />
+      )}
+
+      {activeDestination === 'traveler' && (
+        <ShowcasePanel title="Traveler Overlook" eyebrow="Experience becomes context" items={TRAVEL_HIGHLIGHTS} />
+      )}
+      {activeDestination === 'publisher' && (
+        <ShowcasePanel title="Publisher House" eyebrow="Creative systems" items={PUBLISHING_HIGHLIGHTS} />
       )}
 
       <ProjectPanel
