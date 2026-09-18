@@ -380,3 +380,9 @@
   .detail-panel p { font-size:.8rem; line-height:1.38; }
   .detail-panel + .world-hint { display:none; }
 }
+
+.showcase-panel article a { display:inline-flex; margin-top:.55rem; min-height:44px; align-items:center; color:#f4c979; font-size:.78rem; }
+@media (max-width:760px) {
+  .showcase-panel { max-height:36svh; }
+  .career-reel { max-height:35svh; overflow:auto; }
+}
