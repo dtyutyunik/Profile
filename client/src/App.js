@@ -7,12 +7,13 @@ import ProjectPanel from './components/ProjectPanel';
 import CareerReel from './components/CareerReel';
 import ShowcasePanel from './components/ShowcasePanel';
 import WorkshopDock from './components/WorkshopDock';
+import PublisherShelf from './components/PublisherShelf';
 import PortfolioWorld from './world/PortfolioWorld';
 import { CAREER_METRICS, WORLD_DESTINATIONS } from './data/worldData';
 import { WORKSHOP_PROJECTS } from './data/workshopProjects';
 import { CAREER_ACTS } from './data/careerActs';
 import { TRAVEL_HIGHLIGHTS } from './data/travelHighlights';
-import { PUBLISHING_HIGHLIGHTS } from './data/publishingHighlights';
+import { PUBLISHED_BOOKS } from './data/publishedBooks';
 
 function App() {
   const [activeDestination, setActiveDestination] = useState('home');
@@ -72,9 +73,7 @@ function App() {
       {activeDestination === 'traveler' && (
         <ShowcasePanel title="Traveler Overlook" eyebrow="Experience becomes context" items={TRAVEL_HIGHLIGHTS} />
       )}
-      {activeDestination === 'publisher' && (
-        <ShowcasePanel title="Publisher House" eyebrow="Creative systems" items={PUBLISHING_HIGHLIGHTS} />
-      )}
+      {activeDestination === 'publisher' && <PublisherShelf books={PUBLISHED_BOOKS} />}
 
       <ProjectPanel
         project={activeDestination === 'workshop' ? WORKSHOP_PROJECTS.find((project) => project.id === activeProject) || null : null}
