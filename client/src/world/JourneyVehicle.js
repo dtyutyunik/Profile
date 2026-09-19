@@ -1,10 +1,12 @@
 import { useFrame } from '@react-three/fiber';
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { WORLD_DESTINATIONS } from '../data/worldData';
 
 function JourneyVehicle({ activeDestination }) {
   const vehicle=useRef();
+  const [reducedMotion,setReducedMotion]=useState(false);
+  useEffect(()=>{ const media=window.matchMedia('(prefers-reduced-motion: reduce)'); const sync=()=>setReducedMotion(media.matches); sync(); media.addEventListener?.('change',sync); return()=>media.removeEventListener?.('change',sync); },[]);
   const target=useMemo(()=>{
     const destination=WORLD_DESTINATIONS.find((item)=>item.id===activeDestination);
     const p=destination ? destination.position : [0,0,0];
@@ -13,6 +15,7 @@ function JourneyVehicle({ activeDestination }) {
 
   useFrame((_,delta)=>{
     if(!vehicle.current) return;
+    if(reducedMotion){ vehicle.current.position.copy(target); return; }
     const before=vehicle.current.position.clone();
     vehicle.current.position.lerp(target,1-Math.exp(-2.6*delta));
     const direction=target.clone().sub(before);
