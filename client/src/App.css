@@ -390,3 +390,13 @@
 .project-panel__actions { display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; }
 .project-panel__actions a { min-height:44px; display:inline-flex; align-items:center; padding:.55rem .8rem; border-radius:999px; background:#f4c979; color:#15201d; font-weight:700; text-decoration:none; font-size:.78rem; }
 :focus-visible { outline:3px solid #f4c979; outline-offset:3px; }
+
+.workshop-dock { position:absolute; z-index:32; left:.75rem; right:.75rem; bottom:4.75rem; padding:.7rem; border:1px solid rgba(255,255,255,.12); border-radius:1rem; background:rgba(12,20,18,.88); backdrop-filter:blur(16px); }
+.workshop-dock>p { margin:0 0 .5rem; color:#f4c979; font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; }
+.workshop-dock>div { display:flex; gap:.45rem; overflow-x:auto; scrollbar-width:none; }
+.workshop-dock button { min-width:9.5rem; min-height:52px; padding:.55rem .65rem; text-align:left; border:1px solid rgba(255,255,255,.1); border-radius:.75rem; background:rgba(255,255,255,.055); color:#f7f4eb; }
+.workshop-dock button[aria-pressed="true"] { border-color:#f4c979; background:rgba(244,201,121,.13); }
+.workshop-dock strong,.workshop-dock span { display:block; }
+.workshop-dock strong { font-size:.76rem; }
+.workshop-dock span { margin-top:.2rem; color:rgba(247,244,235,.58); font-size:.64rem; }
+@media (min-width:761px) { .workshop-dock { left:2rem; right:auto; bottom:1.5rem; width:min(48rem,calc(100vw - 30rem)); } }
