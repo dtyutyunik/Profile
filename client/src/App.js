@@ -85,9 +85,11 @@ function App() {
         onClose={() => navigate('home')}
       />
 
-      <div className="world-hint" aria-hidden="true">
-        Click a destination or use quick navigation
+      <div className="social-links" aria-label="Professional links">
+        <a href="https://github.com/dtyutyunik" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/dmitriy-tyutyunik" target="_blank" rel="noreferrer">LinkedIn</a>
       </div>
+      <div className="world-hint" aria-hidden="true">Click a destination or use quick navigation</div>
     </main>
   );
 }
