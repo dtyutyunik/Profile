@@ -6,6 +6,7 @@ import CareerMetrics from './components/CareerMetrics';
 import ProjectPanel from './components/ProjectPanel';
 import CareerReel from './components/CareerReel';
 import ShowcasePanel from './components/ShowcasePanel';
+import WorkshopDock from './components/WorkshopDock';
 import PortfolioWorld from './world/PortfolioWorld';
 import { CAREER_METRICS, WORLD_DESTINATIONS } from './data/worldData';
 import { WORKSHOP_PROJECTS } from './data/workshopProjects';
@@ -59,6 +60,10 @@ function App() {
       </section>
 
       {activeDestination === 'home' && <CareerMetrics metrics={CAREER_METRICS} />}
+
+      {activeDestination === 'workshop' && (
+        <WorkshopDock projects={WORKSHOP_PROJECTS} activeProject={activeProject} onSelect={setActiveProject} />
+      )}
 
       {activeDestination === 'cinema' && (
         <CareerReel acts={CAREER_ACTS} activeIndex={careerAct} onChange={setCareerAct} />
