@@ -51,3 +51,14 @@ test('traveler and publisher destinations expose their stories', async () => {
   await userEvent.click(within(nav).getByRole('button', { name: /^publisher$/i }));
   expect(screen.getByText(/ai-assisted publishing/i)).toBeInTheDocument();
 });
+
+
+test('workshop projects are keyboard-accessible outside the 3D canvas', async () => {
+  render(<App />);
+  const nav=screen.getByRole('navigation',{name:/quick navigation/i});
+  await userEvent.click(within(nav).getByRole('button',{name:/^workshop$/i}));
+  const dock=screen.getByRole('region',{name:/workshop projects/i});
+  await userEvent.click(within(dock).getByRole('button',{name:/reliveincolor/i}));
+  expect(screen.getByRole('heading',{name:/reliveincolor/i})).toBeInTheDocument();
+  expect(screen.getByRole('link',{name:/visit reliveincolor/i})).toHaveAttribute('href','https://reliveincolor.com');
+});
