@@ -1,9 +1,66 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import App from './App';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+jest.mock('./world/PortfolioWorld', () => function MockPortfolioWorld() {
+  return <div data-testid="portfolio-world">3D world</div>;
+});
+
+test('renders the portfolio shell and primary navigation', () => {
+  render(<App />);
+
+  const nav = screen.getByRole('navigation', { name: /quick navigation/i });
+
+  expect(screen.getByRole('heading', { name: /dmitriy tyutyunik/i })).toBeInTheDocument();
+  expect(screen.getByTestId('portfolio-world')).toBeInTheDocument();
+  expect(screen.getByText('14+')).toBeInTheDocument();
+  expect(screen.getByText('60%')).toBeInTheDocument();
+  expect(screen.getByText('85%')).toBeInTheDocument();
+  expect(within(nav).getByRole('button', { name: /^workshop$/i })).toBeInTheDocument();
+  expect(within(nav).getByRole('button', { name: /^cinema$/i })).toBeInTheDocument();
+  expect(within(nav).getByRole('button', { name: /^traveler$/i })).toBeInTheDocument();
+  expect(within(nav).getByRole('button', { name: /^publisher$/i })).toBeInTheDocument();
+});
+
+test('opens destination details from quick navigation and closes them', async () => {
+  render(<App />);
+
+  const nav = screen.getByRole('navigation', { name: /quick navigation/i });
+  await userEvent.click(within(nav).getByRole('button', { name: /^workshop$/i }));
+  expect(screen.getByRole('heading', { name: /tinkerer workshop/i })).toBeInTheDocument();
+
+  await userEvent.click(screen.getByRole('button', { name: /back to overview/i }));
+  expect(screen.queryByRole('heading', { name: /tinkerer workshop/i })).not.toBeInTheDocument();
+});
+
+test('career cinema is skippable act by act', async () => {
+  render(<App />);
+  const nav = screen.getByRole('navigation', { name: /quick navigation/i });
+  await userEvent.click(within(nav).getByRole('button', { name: /^cinema$/i }));
+  expect(screen.getByRole('heading', { name: /analytical foundation/i })).toBeInTheDocument();
+  await userEvent.click(screen.getByRole('button', { name: /next act/i }));
+  expect(screen.getByRole('heading', { name: /becoming an engineer/i })).toBeInTheDocument();
+});
+
+test('traveler and publisher destinations expose their stories', async () => {
+  render(<App />);
+  const nav = screen.getByRole('navigation', { name: /quick navigation/i });
+  await userEvent.click(within(nav).getByRole('button', { name: /^traveler$/i }));
+  expect(screen.getByText(/experience becomes context/i)).toBeInTheDocument();
+  expect(screen.getAllByText(/60\+ countries/i).length).toBeGreaterThan(0);
+  await userEvent.click(within(nav).getByRole('button', { name: /^publisher$/i }));
+  expect(screen.getByText(/6 works/i)).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /ten days before troy/i })).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: /amazon author page/i })).toBeInTheDocument();
+});
+
+
+test('workshop projects are keyboard-accessible outside the 3D canvas', async () => {
+  render(<App />);
+  const nav=screen.getByRole('navigation',{name:/quick navigation/i});
+  await userEvent.click(within(nav).getByRole('button',{name:/^workshop$/i}));
+  const dock=screen.getByRole('region',{name:/workshop projects/i});
+  await userEvent.click(within(dock).getByRole('button',{name:/reliveincolor/i}));
+  expect(screen.getByRole('heading',{name:/reliveincolor/i})).toBeInTheDocument();
+  expect(screen.getByRole('link',{name:/visit reliveincolor/i})).toHaveAttribute('href','https://reliveincolor.com');
 });
