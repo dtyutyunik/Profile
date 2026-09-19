@@ -49,7 +49,9 @@ test('traveler and publisher destinations expose their stories', async () => {
   expect(screen.getByText(/experience becomes context/i)).toBeInTheDocument();
   expect(screen.getAllByText(/60\+ countries/i).length).toBeGreaterThan(0);
   await userEvent.click(within(nav).getByRole('button', { name: /^publisher$/i }));
-  expect(screen.getByText(/ai-assisted publishing/i)).toBeInTheDocument();
+  expect(screen.getByText(/6 works/i)).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /ten days before troy/i })).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: /amazon author page/i })).toBeInTheDocument();
 });
 
 
