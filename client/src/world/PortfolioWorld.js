@@ -5,14 +5,16 @@ import Destination from './Destination';
 import WorldGround from './WorldGround';
 import AmbientLife from './AmbientLife';
 import ProjectExhibit from './ProjectExhibit';
+import JourneyVehicle from './JourneyVehicle';
 import { WORLD_DESTINATIONS } from '../data/worldData';
 
 function PortfolioWorld({ activeDestination, onSelectDestination, projects = [], onSelectProject }) {
   return (
     <Canvas
       className="world-canvas"
+      fallback={<div className="world-fallback" aria-hidden="true" />}
       shadows
-      dpr={[1, 1.35]}
+      dpr={[1, 1.25]}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
       camera={{ position: [11, 10, 15], fov: 42, near: 0.1, far: 100 }}
       onPointerMissed={() => onSelectDestination('home')}
@@ -39,6 +41,7 @@ function PortfolioWorld({ activeDestination, onSelectDestination, projects = [],
         />
       ))}
       <AmbientLife />
+      <JourneyVehicle activeDestination={activeDestination} />
       <ContactShadows position={[0, 0.03, 0]} opacity={0.25} scale={28} blur={2.5} far={8} />
       <Environment preset="sunset" />
       <CameraRig activeDestination={activeDestination} />
