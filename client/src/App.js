@@ -87,6 +87,7 @@ function App() {
         onNavigate={navigate}
       />
 
+      <div className="overview-content" hidden={activeDestination !== "home"}>
       <section
         className={`hero-copy ${activeDestination !== "home" ? "hero-copy--compact" : ""}`}
         aria-label="Introduction"
@@ -117,6 +118,8 @@ function App() {
       {activeDestination === "home" && (
         <CareerMetrics metrics={CAREER_METRICS} onSelect={openHighlight} />
       )}
+
+      </div>
 
       {activeDestination === "workshop" && (
         <WorkshopDock

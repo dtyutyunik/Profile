@@ -1079,3 +1079,62 @@
   .world-hint { display: none; }
 }
 .nav-number { opacity: 1; font-weight: 600; }
+
+/* The hero, actions, and evidence share one flow: never overlap siblings. */
+.overview-content {
+  position: absolute;
+  z-index: 12;
+  top: clamp(100px, 18svh, 170px);
+  bottom: 80px;
+  left: 5%;
+  width: min(510px, 44vw);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #647767 transparent;
+  pointer-events: none;
+  padding: 4px;
+  box-sizing: border-box;
+}
+.overview-content[hidden] { display: none; }
+.portfolio-shell .overview-content .hero-copy {
+  position: relative;
+  inset: auto;
+  width: min(320px, 100%);
+  max-height: none;
+  flex: 0 0 auto;
+  overflow: visible;
+  pointer-events: auto;
+}
+.overview-content .hero-copy h1 { font-size: clamp(42px, 4.5vw, 64px); }
+.portfolio-shell .overview-content .career-metrics {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  margin-top: auto;
+  flex: 0 0 auto;
+  pointer-events: auto;
+}
+@media (max-width: 760px) {
+  .overview-content {
+    top: 80px;
+    bottom: 86px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+    gap: clamp(100px, 20svh, 180px);
+  }
+  .portfolio-shell .overview-content .hero-copy { width: 100%; }
+  .overview-content .hero-copy h1 { font-size: clamp(28px, 7.5vw, 44px) !important; }
+}
+@media (max-width: 760px) {
+  .overview-content .hero-actions { flex-wrap: nowrap; gap: 8px; }
+  .overview-content .hero-actions button,
+  .overview-content .hero-actions a { flex: 1; width: auto; min-width: 0; padding: 10px 8px; }
+}
+@media (max-width: 360px) {
+  .overview-content .career-metric strong { font-size: 17px; }
+}
