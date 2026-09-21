@@ -139,7 +139,10 @@ export default function PortfolioWorld({
             onSelect={onSelectDestination}
           />
         ))}
-        <LivingWorld motion={!paused && !reduced} />
+        <LivingWorld
+          motion={!paused && !reduced}
+          onNavigate={onSelectDestination}
+        />
         <CameraRig
           activeDestination={activeDestination}
           reducedMotion={reduced}

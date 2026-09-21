@@ -1,7 +1,7 @@
 function WorkshopDock({ projects, activeProject, onSelect }) {
   return (
     <section className="workshop-dock" aria-label="Workshop projects">
-      <p>Choose an experiment</p>
+      <p>Explore the work</p>
       <div>
         {projects.map((project) => (
           <button

@@ -23,8 +23,8 @@ test("renders the portfolio shell and primary navigation", () => {
   ).toBeInTheDocument();
   expect(screen.getByTestId("portfolio-world")).toBeInTheDocument();
   expect(screen.getByText("14+")).toBeInTheDocument();
-  expect(screen.getByText("60%")).toBeInTheDocument();
-  expect(screen.getByText("3")).toBeInTheDocument();
+  expect(screen.getByText("OpenAI")).toBeInTheDocument();
+  expect(screen.getByText("MCP")).toBeInTheDocument();
   expect(
     within(nav).getByRole("button", { name: /^workshop$/i }),
   ).toBeInTheDocument();
@@ -59,11 +59,13 @@ test("career cinema is skippable act by act", async () => {
   const nav = screen.getByRole("navigation", { name: /quick navigation/i });
   fireEvent.click(within(nav).getByRole("button", { name: /^cinema$/i }));
   expect(
-    screen.getByRole("heading", { name: /analytical foundation/i }),
+    screen.getByRole("heading", { name: /business judgment before code/i }),
   ).toBeInTheDocument();
   fireEvent.click(screen.getByRole("button", { name: /next act/i }));
   expect(
-    screen.getByRole("heading", { name: /becoming an engineer/i }),
+    screen.getByRole("heading", {
+      name: /from training to founder partnership/i,
+    }),
   ).toBeInTheDocument();
 });
 
@@ -71,7 +73,7 @@ test("traveler and publisher destinations expose their stories", async () => {
   render(<App />);
   const nav = screen.getByRole("navigation", { name: /quick navigation/i });
   fireEvent.click(within(nav).getByRole("button", { name: /^traveler$/i }));
-  expect(screen.getByText(/experience becomes context/i)).toBeInTheDocument();
+  expect(screen.getByText(/curiosity beyond the screen/i)).toBeInTheDocument();
   expect(screen.getAllByText(/60\+ countries/i).length).toBeGreaterThan(0);
   fireEvent.click(within(nav).getByRole("button", { name: /^publisher$/i }));
   expect(screen.getByText(/6 works/i)).toBeInTheDocument();
@@ -131,4 +133,43 @@ test("visitors can pause and resume the animated world", () => {
     "data-paused",
     "false",
   );
+});
+
+test("AI highlights lead to real project actions and the career story connects to systems", () => {
+  render(<App />);
+  fireEvent.click(
+    screen.getByRole("button", { name: /OpenAI.*Explore classifier/i }),
+  );
+  expect(
+    screen.getByRole("heading", { name: "OpenAI Issue Classifier" }),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole("link", { name: "Discuss this system" }),
+  ).toHaveAttribute(
+    "href",
+    expect.stringContaining("mailto:dmitriy.tyutyunik@gmail.com?subject="),
+  );
+  fireEvent.click(screen.getByRole("button", { name: "Back to all projects" }));
+  expect(
+    screen.queryByRole("heading", { name: "OpenAI Issue Classifier" }),
+  ).not.toBeInTheDocument();
+  fireEvent.click(
+    within(
+      screen.getByRole("navigation", { name: /quick navigation/i }),
+    ).getByRole("button", { name: /overview/i }),
+  );
+  fireEvent.click(
+    screen.getByRole("button", { name: /7.*Production impact/i }),
+  );
+  expect(
+    screen.getByRole("heading", { name: "AI in the production workflow" }),
+  ).toBeInTheDocument();
+  fireEvent.click(screen.getByRole("button", { name: /next act/i }));
+  fireEvent.click(screen.getByRole("button", { name: /explore MCP/i }));
+  expect(
+    screen.getByRole("heading", { name: "MCP + Agent Systems" }),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole("link", { name: "Discuss agent tooling" }),
+  ).toBeInTheDocument();
 });

@@ -899,3 +899,114 @@
     min-width: 36px;
   }
 }
+
+/* Evidence cards are navigation into the work, not decorative counters. */
+.career-metrics {
+  width: 420px;
+}
+.career-metric {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: transparent;
+  border: 0;
+  border-left: 1px solid #4c62422b;
+  border-radius: 0;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  min-width: 0;
+  min-height: 100px;
+}
+.career-metric strong {
+  font-size: 25px;
+}
+.career-metric span {
+  font-size: 10px;
+  max-width: none;
+}
+.career-metric .career-metric__cta {
+  color: #334831;
+  font-weight: 600;
+  font-size: 9px;
+  padding-top: 8px;
+  margin-top: auto;
+}
+.career-metric__cta i {
+  font-style: normal;
+}
+.career-metric:hover .career-metric__cta {
+  text-decoration: underline;
+}
+.career-metric:focus-visible {
+  outline: 2px solid #334831;
+  outline-offset: 5px;
+}
+.project-panel__dismiss {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 44px;
+  height: 44px;
+  font-size: 24px;
+}
+.project-panel__type,
+.project-panel h3 {
+  padding-right: 34px;
+}
+.career-reel__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 24px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  background: #f4c979;
+  color: #15201d;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+@media (max-width: 760px) {
+  .career-metrics {
+    width: auto;
+  }
+  .career-metric {
+    padding: 0 8px;
+    min-height: 105px;
+  }
+  .career-metric strong {
+    font-size: 22px;
+  }
+  .career-metric span {
+    font-size: 9px;
+    line-height: 1.4;
+  }
+  .career-metric .career-metric__cta {
+    font-size: 8px;
+  }
+}
+@media (max-width: 360px) {
+  .career-metric {
+    padding: 0 5px;
+    min-height: 100px;
+  }
+  .career-metric strong {
+    font-size: 18px;
+  }
+  .career-metric span {
+    font-size: 8px;
+  }
+  .career-metric .career-metric__cta {
+    font-size: 8px;
+  }
+}
+
+.project-panel__actions { margin-top: 12px; }
+@media (max-width: 760px) {
+  .project-panel { max-height: min(40svh, calc(100svh - 290px)); }
+}
