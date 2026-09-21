@@ -1,3 +1,45 @@
-# Portfolio
+# Dmitriy Tyutyunik — Portfolio World
 
-[Link to Portfolio](http://dmitriy-tyutyunik.surge.sh/)
+A miniature coastal world with four destinations: Career Cinema, Tinkerer Workshop, Traveler Overlook, and Publisher House. React 18, React Three Fiber, and Three.js.
+
+## Run locally
+
+```sh
+cd client
+npm ci
+npm start
+```
+
+## Verify the production bundle
+
+```sh
+cd client
+npm run test:ci -- --runInBand
+npm run build
+npm run dev
+```
+
+The production preview serves `build` on port 4173. `npm start` remains the normal live development server. The preview's `/__qa__?width=390&height=844` route embeds the real app in a phone-sized viewport; it is a development-server feature, not part of the deployed bundle.
+
+## Scene architecture
+
+- `src/world/diorama/geometry.js`: mesh baking, vertex-color batches, architectural helpers.
+- `architecture.js`: custom authored facades, tiled roofs, glazing, signs, shop fittings, popcorn, and observatory details.
+- `landscape.js`: triangulated terrain, geological strata, paths, cambered bridges, planting, harbor, and atmospheric ridgelines.
+- `LivingWorld.js`: miniature agents, pickup, rowboat, balloon, water shader, and waterfall.
+- `CameraRig.js`: responsive destination shots, damped movement, and camera-relative fog.
+- `StaticWorld.js`: same-scene rendered fallback with interactive destination pins when WebGL is unavailable.
+- `Diorama.css`: editorial interface and compact-screen layouts.
+
+The scene uses local geometry and CanvasTexture signage. It does not fetch a remote HDR environment, models, or fonts. Repeated details are merged into material batches. Animation runs on a demand-rendered 30 Hz schedule, stops in hidden tabs, and respects pause and reduced motion. DPR is capped at 1.5. Destination transitions continue to invalidate while settling even when ambient animation is paused.
+
+## Visual QA, September 2026
+
+- Production build passes; application JavaScript is approximately 271 kB gzipped.
+- Seven application interaction tests pass, including all destinations, project selection, career progression, Escape, and pause/resume state.
+- Authored scene export: 49 mesh batches, 98,064 triangles; finite coordinates, matching vertex colors, and valid indices checked. This includes the offline sea representation and is a structural budget, not a measured GPU draw count.
+- Scene composition was inspected with CPU renders of the actual authored meshes. Fallback views were compressed to WebP and included under `public/world-stills`.
+- Desktop and phone browser checks exercise the illustrated fallback, content navigation, and responsive layouts. The available cloud browser disables WebGL, so live shader rendering, animation smoothness, context restoration, Safari behavior, and physical-phone GPU performance still need validation on a WebGL-capable device.
+- The supplied resume grounds career copy and metrics: seven years at Fubo since July 2019, 60% less troubleshooting, three junior engineers mentored. The unsupported 85% figure was removed. The resume PDF and phone number are not included in the public source.
+
+The existing custom-domain host is managed separately from this repository. This change does not alter hosting or deploy automatically.
