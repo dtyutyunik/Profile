@@ -1,25 +1,25 @@
 export const CAREER_METRICS = [
   {
     value: "14+",
-    label: "Years of business + engineering",
+    label: "Years in business + code",
     cta: "My approach",
     act: 0,
   },
   {
     value: "7",
-    label: "Years shipping at Fubo",
+    label: "Years at Fubo",
     cta: "Production impact",
     act: 2,
   },
   {
     value: "OpenAI",
-    label: "Automated ticket classification",
+    label: "AI ticket triage",
     cta: "Explore classifier",
     projectId: "support",
   },
   {
     value: "MCP",
-    label: "Custom tools for AI agents",
+    label: "Custom AI tools",
     cta: "Explore systems",
     projectId: "agents",
   },
