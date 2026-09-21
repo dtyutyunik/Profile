@@ -1,45 +1,50 @@
-import { useFrame, useThree } from '@react-three/fiber';
-import { useEffect, useMemo, useState } from 'react';
-import * as THREE from 'three';
-import { OVERVIEW_CAMERA, WORLD_DESTINATIONS } from '../data/worldData';
+import { useFrame, useThree } from "@react-three/fiber";
+import { useMemo, useRef } from "react";
+import * as THREE from "three";
+import { WORLD_DESTINATIONS } from "../data/worldData";
 
-function CameraRig({ activeDestination }) {
-  const { camera } = useThree();
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const [mobile, setMobile] = useState(false);
-
-  useEffect(() => {
-    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const phone = window.matchMedia('(max-width: 760px)');
-    const sync = () => { setReducedMotion(motion.matches); setMobile(phone.matches); };
-    sync();
-    motion.addEventListener?.('change', sync);
-    phone.addEventListener?.('change', sync);
-    return () => { motion.removeEventListener?.('change', sync); phone.removeEventListener?.('change', sync); };
-  }, []);
-
-  const view = useMemo(() => WORLD_DESTINATIONS.find((d) => d.id === activeDestination) || OVERVIEW_CAMERA, [activeDestination]);
-  const desiredPosition = useMemo(() => {
-    const position = new THREE.Vector3(...view.camera);
-    if (mobile) {
-      position.multiplyScalar(activeDestination === 'home' ? 1.22 : 1.12);
-      position.y += activeDestination === 'home' ? 2.2 : 1;
+export default function CameraRig({ activeDestination, reducedMotion }) {
+  const { camera, size, invalidate, scene } = useThree();
+  const initialized = useRef(false);
+  const target = useMemo(() => new THREE.Vector3(), []);
+  const view = useMemo(() => {
+    const mobile = size.width <= 760,
+      aspect = size.width / size.height,
+      home = activeDestination === "home";
+    const d = WORLD_DESTINATIONS.find((d) => d.id === activeDestination);
+    const look = new THREE.Vector3(...(d ? d.target : [0, 0.4, 0]));
+    const direction = new THREE.Vector3(
+      ...(d ? d.camera : [18, 18, 26]),
+    ).normalize();
+    const right = new THREE.Vector3(direction.z, 0, -direction.x).normalize();
+    if (home && !mobile) look.addScaledVector(right, -3.5);
+    if (!home && !mobile) look.addScaledVector(right, 2.1);
+    if (home && mobile) look.y += 1.2;
+    if (!home && mobile) look.y -= 1.4;
+    const distance = home
+      ? Math.max(mobile ? 30 : 31, (mobile ? 32 : 34) / aspect)
+      : Math.max(mobile ? 13 : 14, (mobile ? 10.5 : 15) / aspect);
+    return {
+      position: look.clone().addScaledVector(direction, distance),
+      target: look,
+    };
+  }, [activeDestination, size.width, size.height]);
+  useFrame((_, delta) => {
+    const snap = reducedMotion || !initialized.current;
+    const damping = snap ? 1 : 1 - Math.exp(-3.8 * Math.min(delta, 0.1));
+    camera.position.lerp(view.position, damping);
+    target.lerp(view.target, damping);
+    camera.lookAt(target);
+    if (scene.fog) {
+      scene.fog.near = Math.max(34, camera.position.distanceTo(target) + 3);
+      scene.fog.far = scene.fog.near + 51;
     }
-    return position;
-  }, [view, mobile, activeDestination]);
-  const desiredTarget = useMemo(() => new THREE.Vector3(...view.target), [view]);
-  const currentTarget = useMemo(() => new THREE.Vector3(...OVERVIEW_CAMERA.target), []);
-
-  useFrame((state, delta) => {
-    const damping = reducedMotion ? 1 : 1 - Math.exp(-3.25 * delta);
-    camera.position.lerp(desiredPosition, damping);
-    currentTarget.lerp(desiredTarget, damping);
-    camera.lookAt(currentTarget);
-    if (!reducedMotion && activeDestination === 'home' && !mobile) {
-      camera.position.x += state.pointer.x * 0.006;
-      camera.position.y += state.pointer.y * 0.003;
-    }
+    if (
+      camera.position.distanceToSquared(view.position) > 0.00001 ||
+      target.distanceToSquared(view.target) > 0.00001
+    )
+      invalidate();
+    initialized.current = true;
   });
   return null;
 }
-export default CameraRig;

@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Intermediate scene exports and offline QA renders
+/qa/render/

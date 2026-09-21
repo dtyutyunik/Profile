@@ -1,52 +1,151 @@
-import { Canvas } from '@react-three/fiber';
-import { ContactShadows, Environment } from '@react-three/drei';
-import CameraRig from './CameraRig';
-import Destination from './Destination';
-import WorldGround from './WorldGround';
-import AmbientLife from './AmbientLife';
-import ProjectExhibit from './ProjectExhibit';
-import JourneyVehicle from './JourneyVehicle';
-import { WORLD_DESTINATIONS } from '../data/worldData';
+import { Component, useCallback, useEffect, useRef, useState } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import * as THREE from "three";
+import CameraRig from "./CameraRig";
+import StaticWorld from "./StaticWorld";
+import Destination from "./Destination";
+import WorldGround from "./WorldGround";
+import LivingWorld, { Water } from "./diorama/LivingWorld";
+import { WORLD_DESTINATIONS } from "../data/worldData";
 
-function PortfolioWorld({ activeDestination, onSelectDestination, projects = [], onSelectProject }) {
+class SceneBoundary extends Component {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch() {
+    this.props.onError?.();
+  }
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children;
+  }
+}
+function RenderSchedule({ moving, onReady }) {
+  const { invalidate, gl } = useThree();
+  const frames = useRef(0);
+  useEffect(() => {
+    onReady?.();
+  }, [onReady]);
+  useEffect(() => {
+    let timer;
+    const start = () => {
+      clearInterval(timer);
+      if (moving && !document.hidden)
+        timer = setInterval(invalidate, 1000 / 30);
+    };
+    start();
+    document.addEventListener("visibilitychange", start);
+    return () => {
+      clearInterval(timer);
+      document.removeEventListener("visibilitychange", start);
+    };
+  }, [moving, invalidate]);
+  useFrame(() => {
+    frames.current++;
+    if (frames.current % 30 === 0) {
+      gl.domElement.dataset.drawCalls = gl.info.render.calls;
+      gl.domElement.dataset.triangles = gl.info.render.triangles;
+      gl.domElement.dataset.frames = frames.current;
+    }
+  });
+  return null;
+}
+export default function PortfolioWorld({
+  activeDestination,
+  onSelectDestination,
+  paused = false,
+  onReady,
+}) {
+  const [contextLost, setContextLost] = useState(false);
+  const canvasRef = useRef();
+  const handleContextLoss = useCallback((event) => {
+    event.preventDefault();
+    setContextLost(true);
+  }, []);
+  useEffect(
+    () => () =>
+      canvasRef.current?.removeEventListener(
+        "webglcontextlost",
+        handleContextLoss,
+      ),
+    [handleContextLoss],
+  );
+  const [reduced, setReduced] = useState(
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
+  useEffect(() => {
+    const m = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduced(m.matches);
+    m.addEventListener?.("change", sync);
+    return () => m.removeEventListener?.("change", sync);
+  }, []);
+  const fallback = (
+    <StaticWorld
+      activeDestination={activeDestination}
+      onSelectDestination={onSelectDestination}
+      onReady={onReady}
+    />
+  );
+  if (contextLost) return fallback;
   return (
-    <Canvas
-      className="world-canvas"
-      fallback={<div className="world-fallback" aria-hidden="true" />}
-      shadows
-      dpr={[1, 1.25]}
-      gl={{ antialias: true, powerPreference: 'high-performance' }}
-      camera={{ position: [11, 10, 15], fov: 42, near: 0.1, far: 100 }}
-      onPointerMissed={() => onSelectDestination('home')}
-    >
-      <color attach="background" args={['#18302b']} />
-      <fog attach="fog" args={['#18302b', 20, 38]} />
-
-      <hemisphereLight intensity={1.05} color="#f2dfb6" groundColor="#304b3d" />
-      <directionalLight castShadow position={[8, 14, 8]} intensity={2.1}
-        shadow-mapSize-width={768} shadow-mapSize-height={768} />
-
-      <WorldGround />
-      {WORLD_DESTINATIONS.map((destination) => (
-        <Destination key={destination.id} destination={destination}
-          selected={activeDestination === destination.id}
-          onSelect={onSelectDestination} />
-      ))}
-      {projects.map((project, index) => (
-        <ProjectExhibit
-          key={project.id}
-          project={project}
-          position={[-1.65 + (index % 2) * 3.3, 0, -0.85 + Math.floor(index / 2) * 1.65]}
-          onSelect={onSelectProject}
+    <SceneBoundary onError={onReady} fallback={fallback}>
+      <Canvas
+        className="world-canvas"
+        shadows
+        frameloop="demand"
+        dpr={[1, 1.5]}
+        gl={{ antialias: true, powerPreference: "default", alpha: false }}
+        camera={{ position: [18, 18, 25], fov: 38, near: 0.1, far: 180 }}
+        onCreated={({ gl }) => {
+          canvasRef.current = gl.domElement;
+          gl.domElement.addEventListener("webglcontextlost", handleContextLoss);
+          gl.toneMapping = THREE.ACESFilmicToneMapping;
+          gl.toneMappingExposure = 1.16;
+          gl.shadowMap.type = THREE.PCFSoftShadowMap;
+        }}
+        fallback={fallback}
+      >
+        <color attach="background" args={["#ded6bb"]} />
+        <fog attach="fog" args={["#ded6bb", 34, 85]} />
+        <hemisphereLight args={["#ffe6bc", "#788f82", 1.3]} />
+        <directionalLight
+          position={[-8, 9, 5]}
+          color="#ffd09a"
+          intensity={3.0}
+          castShadow
+          shadow-mapSize={[2048, 2048]}
+          shadow-camera-left={-14}
+          shadow-camera-right={14}
+          shadow-camera-top={13}
+          shadow-camera-bottom={-13}
+          shadow-camera-near={0.5}
+          shadow-camera-far={45}
+          shadow-normalBias={0.035}
+          shadow-bias={-0.00015}
         />
-      ))}
-      <AmbientLife />
-      <JourneyVehicle activeDestination={activeDestination} />
-      <ContactShadows position={[0, 0.03, 0]} opacity={0.25} scale={28} blur={2.5} far={8} />
-      <Environment preset="sunset" />
-      <CameraRig activeDestination={activeDestination} />
-    </Canvas>
+        <directionalLight
+          position={[5, 6, -8]}
+          color="#c3d7d2"
+          intensity={0.7}
+        />
+        <WorldGround />
+        <Water motion={!paused && !reduced} />
+        {WORLD_DESTINATIONS.map((d) => (
+          <Destination
+            key={d.id}
+            destination={d}
+            selected={activeDestination === d.id}
+            overview={activeDestination === "home"}
+            onSelect={onSelectDestination}
+          />
+        ))}
+        <LivingWorld motion={!paused && !reduced} />
+        <CameraRig
+          activeDestination={activeDestination}
+          reducedMotion={reduced}
+        />
+        <RenderSchedule moving={!paused && !reduced} onReady={onReady} />
+      </Canvas>
+    </SceneBoundary>
   );
 }
-
-export default PortfolioWorld;
