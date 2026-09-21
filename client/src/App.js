@@ -131,7 +131,6 @@ function App() {
           acts={CAREER_ACTS}
           activeIndex={careerAct}
           onChange={setCareerAct}
-          onSelectProject={openProject}
         />
       )}
 

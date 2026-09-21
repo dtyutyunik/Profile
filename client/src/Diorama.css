@@ -1010,3 +1010,7 @@
 @media (max-width: 760px) {
   .project-panel { max-height: min(40svh, calc(100svh - 290px)); }
 }
+
+.showcase-panel > .career-reel__cta {
+  margin-top: 20px;
+}

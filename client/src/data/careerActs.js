@@ -13,14 +13,10 @@ export const CAREER_ACTS = [
     year: "Act III",
     title: "AI in the production workflow",
     text: "Seven years at Fubo, since July 2019. I architected and deployed a real-time React / TypeScript / Node dashboard with an OpenAI-powered classifier to categorize tickets and reduce manual triage. Alongside it, I built geolocation tooling that brought resolution from minutes to seconds and experimentation tools that cut setup from days to hours.",
-    projectId: "support",
-    cta: "Explore the classifier",
   },
   {
     year: "Act IV",
     title: "Giving AI tools to act",
     text: "Beyond model responses: I built a custom MCP server used with Claude and implemented tool-calling patterns that connect AI to software actions. I standardized Cursor-assisted test scaffolding, refactoring, and reviewable iteration—bringing engineering discipline to AI-assisted delivery.",
-    projectId: "agents",
-    cta: "Explore MCP + agent systems",
   },
 ];

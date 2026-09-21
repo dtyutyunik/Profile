@@ -135,7 +135,7 @@ test("visitors can pause and resume the animated world", () => {
   );
 });
 
-test("AI highlights lead to real project actions and the career story connects to systems", () => {
+test("AI highlights open project details while career acts have no project CTA", () => {
   render(<App />);
   fireEvent.click(
     screen.getByRole("button", { name: /OpenAI.*Explore classifier/i }),
@@ -165,11 +165,10 @@ test("AI highlights lead to real project actions and the career story connects t
     screen.getByRole("heading", { name: "AI in the production workflow" }),
   ).toBeInTheDocument();
   fireEvent.click(screen.getByRole("button", { name: /next act/i }));
-  fireEvent.click(screen.getByRole("button", { name: /explore MCP/i }));
   expect(
-    screen.getByRole("heading", { name: "MCP + Agent Systems" }),
+    screen.getByRole("heading", { name: "Giving AI tools to act" }),
   ).toBeInTheDocument();
   expect(
-    screen.getByRole("link", { name: "Discuss agent tooling" }),
-  ).toBeInTheDocument();
+    within(screen.getByRole("region", { name: "Career story" })).queryByRole("button", { name: /explore/i }),
+  ).not.toBeInTheDocument();
 });

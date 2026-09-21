@@ -46,7 +46,7 @@ The existing custom-domain host is managed separately from this repository. This
 
 ## Impact and motion refinement
 
-Overview highlights now link directly to the relevant career act or project. The career reel separates founder partnerships, production OpenAI classification, and custom MCP / Claude / Cursor tooling. Internal project actions open a topic-specific email draft; ReliveInColor links to the live product. Travel content is personal and concrete, with a route into the travel tools.
+Overview highlights now link directly to the relevant career act or project. The career reel separates founder partnerships, production OpenAI classification, and custom MCP / Claude / Cursor tooling. Acts III and IV have no project CTA because these are work-based systems without public links. Internal project actions open a topic-specific email draft; ReliveInColor links to the live product. Travel content is personal and concrete, with a route into the travel tools.
 
 The classifier's processing volume is not quantified: a hypothetical 1M-user base with a 10–15% issue rate is not evidence of actual tool throughput. Early-career figures (20% onboarding, 27% engagement, 15% click-through) come from the supplied resume.
 
