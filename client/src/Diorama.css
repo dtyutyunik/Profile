@@ -899,3 +899,242 @@
     min-width: 36px;
   }
 }
+
+/* Evidence cards are navigation into the work, not decorative counters. */
+.career-metrics {
+  width: 420px;
+}
+.career-metric {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: transparent;
+  border: 0;
+  border-left: 1px solid #4c62422b;
+  border-radius: 0;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  min-width: 0;
+  min-height: 100px;
+}
+.career-metric strong {
+  font-size: 25px;
+}
+.career-metric span {
+  font-size: 10px;
+  max-width: none;
+}
+.career-metric .career-metric__cta {
+  color: #334831;
+  font-weight: 600;
+  font-size: 9px;
+  padding-top: 8px;
+  margin-top: auto;
+}
+.career-metric__cta i {
+  font-style: normal;
+}
+.career-metric:hover .career-metric__cta {
+  text-decoration: underline;
+}
+.career-metric:focus-visible {
+  outline: 2px solid #334831;
+  outline-offset: 5px;
+}
+.project-panel__dismiss {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 44px;
+  height: 44px;
+  font-size: 24px;
+}
+.project-panel__type,
+.project-panel h3 {
+  padding-right: 34px;
+}
+.career-reel__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 24px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  background: #f4c979;
+  color: #15201d;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+@media (max-width: 760px) {
+  .career-metrics {
+    width: auto;
+  }
+  .career-metric {
+    padding: 0 8px;
+    min-height: 105px;
+  }
+  .career-metric strong {
+    font-size: 22px;
+  }
+  .career-metric span {
+    font-size: 9px;
+    line-height: 1.4;
+  }
+  .career-metric .career-metric__cta {
+    font-size: 8px;
+  }
+}
+@media (max-width: 360px) {
+  .career-metric {
+    padding: 0 5px;
+    min-height: 100px;
+  }
+  .career-metric strong {
+    font-size: 18px;
+  }
+  .career-metric span {
+    font-size: 8px;
+  }
+  .career-metric .career-metric__cta {
+    font-size: 8px;
+  }
+}
+
+.project-panel__actions { margin-top: 12px; }
+@media (max-width: 760px) {
+  .project-panel { max-height: min(40svh, calc(100svh - 290px)); }
+}
+
+.showcase-panel > .career-reel__cta {
+  margin-top: 20px;
+}
+
+/* Stable, contrasting UI surfaces over a changing 3D background. */
+.hero-copy > p:not(.eyebrow), .hero-copy .eyebrow,
+.site-masthead, .social-links a { color: #263b30; }
+.hero-copy h1 em { color: #40572f; }
+.hero-actions a { color: #20332b; background: #f3eedb; padding: 10px 12px; border-radius: 6px; }
+.quick-nav { background: #f3eedb; }
+.quick-nav button, .nav-number, .nav-symbol { color: #263b30; }
+.quick-nav button[aria-current="true"] { color: #fff6df; }
+.quick-nav button[aria-current="true"] .nav-number,
+.quick-nav button[aria-current="true"] .nav-symbol { color: #fff6df; }
+.destination-pin, .destination-pin > span { color: #20332b; background: #fff3d4; }
+.destination-pin--active, .destination-pin--active > span { color: #fff3d4; background: #20332b; }
+.career-metrics {
+  box-sizing: border-box;
+  width: min(510px, calc(100vw - 64px));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 16px;
+  background: #20332b;
+  border: 1px solid #f4c97966;
+  border-radius: 12px;
+  box-shadow: 0 8px 28px #15231c30;
+}
+.career-metric { padding: 0 12px; border-color: #f3eedb40; min-height: 118px; }
+.career-metric strong { color: #f4c979; white-space: nowrap; font-size: 28px; }
+.career-metric span { color: #f3eedb; font-size: 12px; overflow-wrap: anywhere; }
+.career-metric .career-metric__cta { color: #f4c979; font-size: 11px; line-height: 1.5; }
+.career-metric:focus-visible { outline-color: #f4c979; }
+@media (min-width: 761px) and (max-height: 800px) {
+  .is-overview .hero-copy {
+    top: 100px;
+    max-height: calc(100svh - 370px);
+    overflow-y: auto;
+    pointer-events: auto;
+  }
+  .is-overview .hero-copy h1 { font-size: 46px; }
+  .is-overview .hero-actions { margin-top: 16px; gap: 16px; flex-direction: row; }
+}
+@media (max-width: 760px) {
+  .career-metrics { width: auto; left: 20px; right: 20px; padding: 12px; }
+  .career-metric { padding: 0 7px; min-height: 118px; }
+  .career-metric strong { font-size: 22px; }
+  .career-metric span { font-size: 11px; }
+  .career-metric .career-metric__cta { font-size: 10px; }
+  .nav-number { font-size: 11px; }
+  .destination-pin > span { font-weight: 700; }
+}
+@media (max-width: 360px) {
+  .career-metrics { left: 16px; right: 16px; padding: 10px; }
+  .career-metric { padding: 0 5px; }
+  .career-metric strong { font-size: 18px; }
+  .career-metric span { font-size: 10px; }
+  .career-metric .career-metric__cta { font-size: 9px; }
+}
+@media (min-width: 761px) and (max-height: 800px) {
+  .is-overview .hero-copy { width: min(320px, 34vw); }
+  .is-overview .hero-copy > p:not(.eyebrow) { max-width: 300px; }
+  .is-overview .hero-actions { flex-wrap: nowrap; gap: 8px; }
+  .is-overview .hero-actions button,
+  .is-overview .hero-actions a { flex: 1; width: auto; min-width: 0; font-size: 10px; padding: 10px; }
+}
+@media (min-width: 761px) and (max-width: 1200px) {
+  .world-hint { display: none; }
+}
+.nav-number { opacity: 1; font-weight: 600; }
+
+/* The hero, actions, and evidence share one flow: never overlap siblings. */
+.overview-content {
+  position: absolute;
+  z-index: 12;
+  top: clamp(100px, 18svh, 170px);
+  bottom: 80px;
+  left: 5%;
+  width: min(510px, 44vw);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #647767 transparent;
+  pointer-events: none;
+  padding: 4px;
+  box-sizing: border-box;
+}
+.overview-content[hidden] { display: none; }
+.portfolio-shell .overview-content .hero-copy {
+  position: relative;
+  inset: auto;
+  width: min(320px, 100%);
+  max-height: none;
+  flex: 0 0 auto;
+  overflow: visible;
+  pointer-events: auto;
+}
+.overview-content .hero-copy h1 { font-size: clamp(42px, 4.5vw, 64px); }
+.portfolio-shell .overview-content .career-metrics {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  margin-top: auto;
+  flex: 0 0 auto;
+  pointer-events: auto;
+}
+@media (max-width: 760px) {
+  .overview-content {
+    top: 80px;
+    bottom: 86px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+    gap: clamp(100px, 20svh, 180px);
+  }
+  .portfolio-shell .overview-content .hero-copy { width: 100%; }
+  .overview-content .hero-copy h1 { font-size: clamp(28px, 7.5vw, 44px) !important; }
+}
+@media (max-width: 760px) {
+  .overview-content .hero-actions { flex-wrap: nowrap; gap: 8px; }
+  .overview-content .hero-actions button,
+  .overview-content .hero-actions a { flex: 1; width: auto; min-width: 0; padding: 10px 8px; }
+}
+@media (max-width: 360px) {
+  .overview-content .career-metric strong { font-size: 17px; }
+}

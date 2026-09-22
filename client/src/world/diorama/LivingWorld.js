@@ -136,7 +136,7 @@ export function pickup() {
   b.box([0, 1.1, 0.12], [0.41, 0.15, 0.44], C.wood);
   return b.finish("Workshop pickup");
 }
-export default function LivingWorld({ motion }) {
+export default function LivingWorld({ motion, onNavigate }) {
   const robots = useMemo(
     () => ["#e7b465", "#6faaa0", "#d08366", "#95bbb0", "#d29875"].map(robot),
     [],
@@ -145,6 +145,8 @@ export default function LivingWorld({ motion }) {
     airship = useMemo(balloon, []),
     truck = useMemo(pickup, []);
   const walker = useRef(),
+    greeter = useRef(),
+    reader = useRef(),
     floating = useRef(),
     air = useRef(),
     t = useRef(0);
@@ -158,13 +160,28 @@ export default function LivingWorld({ motion }) {
       walker.current.position.y = 0.045 + Math.abs(Math.sin(time * 4)) * 0.025;
       walker.current.rotation.y = Math.cos(time * 0.24) > 0 ? 1.2 : -1.9;
     }
+    if (greeter.current) {
+      greeter.current.rotation.y = 0.2 + Math.sin(time * 0.9) * 0.7;
+      greeter.current.rotation.z = Math.sin(time * 1.8) * 0.07;
+    }
+    if (reader.current) {
+      reader.current.position.x = 4.05 + Math.sin(time * 0.45) * 0.65;
+      reader.current.position.y = 0.1 + Math.abs(Math.sin(time * 4)) * 0.035;
+      reader.current.rotation.y = Math.cos(time * 0.45) > 0 ? 1.57 : -1.57;
+    }
     if (floating.current) {
-      floating.current.position.y = -2.07 + Math.sin(time * 0.8) * 0.035;
-      floating.current.rotation.z = Math.sin(time * 0.7) * 0.025;
+      floating.current.position.x = -3.3 + Math.sin(time * 0.24) * 0.65;
+      floating.current.position.z = 8.4 + Math.sin(time * 0.3) * 0.25;
+      floating.current.position.y = -2.07 + Math.sin(time * 1.5) * 0.09;
+      floating.current.rotation.y = 0.55 + Math.sin(time * 0.4) * 0.18;
+      floating.current.rotation.z = Math.sin(time * 1.1) * 0.065;
     }
     if (air.current) {
-      air.current.position.y = 4.5 + Math.sin(time * 0.25) * 0.17;
-      air.current.rotation.y = Math.sin(time * 0.13) * 0.06;
+      air.current.position.x = 5.8 + Math.sin(time * 0.3) * 1.25;
+      air.current.position.z = -6.9 + Math.sin(time * 0.22) * 0.5;
+      air.current.position.y = 4.5 + Math.sin(time * 0.65) * 0.48;
+      air.current.rotation.z = Math.sin(time * 0.5) * 0.06;
+      air.current.rotation.y = Math.sin(time * 0.3) * 0.2;
     }
   });
   return (
@@ -172,19 +189,30 @@ export default function LivingWorld({ motion }) {
       <group position={[-5.5, 0.05, 2.1]} rotation={[0, -0.45, 0]}>
         <primitive object={truck} />
       </group>
-      <group ref={walker} position={[-3.5, 0.045, 1.7]}>
+      <group
+        ref={walker}
+        position={[-3.5, 0.045, 1.7]}
+        onClick={(event) => {
+          event.stopPropagation();
+          onNavigate?.("workshop");
+        }}
+      >
         <primitive object={robots[0]} />
       </group>
       <group position={[-0.05, 0.1, 1.7]} rotation={[0, -0.4, 0]}>
         <primitive object={robots[1]} />
       </group>
-      <group position={[-5.55, 0.15, -0.37]} rotation={[0, 0.2, 0]}>
+      <group
+        ref={greeter}
+        position={[-5.55, 0.15, -0.37]}
+        rotation={[0, 0.2, 0]}
+      >
         <primitive object={robots[2]} />
       </group>
       <group position={[4.6, 0.54, -1.2]} rotation={[0, -0.4, 0]}>
         <primitive object={robots[3]} />
       </group>
-      <group position={[4.05, 0.1, 5.55]} rotation={[0, 0.4, 0]}>
+      <group ref={reader} position={[4.05, 0.1, 5.55]} rotation={[0, 0.4, 0]}>
         <primitive object={robots[4]} />
       </group>
       <group
@@ -194,7 +222,15 @@ export default function LivingWorld({ motion }) {
       >
         <primitive object={rowboat} />
       </group>
-      <group ref={air} position={[5.8, 4.5, -6.9]} scale={0.85}>
+      <group
+        ref={air}
+        position={[5.8, 4.5, -6.9]}
+        scale={0.85}
+        onClick={(event) => {
+          event.stopPropagation();
+          onNavigate?.("traveler");
+        }}
+      >
         <primitive object={airship} />
       </group>
     </group>
@@ -203,11 +239,33 @@ export default function LivingWorld({ motion }) {
 
 const waterVertex = `varying vec3 vWorld; void main(){vec4 p=modelMatrix*vec4(position,1.);vWorld=p.xyz;gl_Position=projectionMatrix*viewMatrix*p;}`;
 const waterFragment = `uniform float time;uniform vec3 deepColor;uniform vec3 shallowColor;uniform float river;varying vec3 vWorld;
-void main(){float w=sin(vWorld.x*3.+vWorld.z*4.+time*.8)*sin(vWorld.z*5.-time*.5);float shimmer=pow(max(0.,sin(vWorld.x*6.+vWorld.z*2.+time*.6)),22.)*.1;vec3 c=mix(deepColor,shallowColor,.48+w*.08+shimmer);float distanceFog=smoothstep(14.,60.,length(vWorld.xz));c=mix(c,vec3(.78,.76,.67),distanceFog*(1.-river));gl_FragColor=vec4(c,1.);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>}`;
+void main(){
+  float w=sin(vWorld.x*3.+vWorld.z*4.-time*1.6)*sin(vWorld.z*5.-time*1.1);
+  float flow=pow(max(0.,sin(vWorld.z*9.-time*5.+sin(vWorld.x*7.))),12.);
+  float shimmer=pow(max(0.,sin(vWorld.x*6.+vWorld.z*2.-time*1.5)),18.);
+  vec3 c=mix(deepColor,shallowColor,.48+w*.18+shimmer*.2);
+  c=mix(c,vec3(.75,.87,.79),flow*river*.38);
+  float distanceFog=smoothstep(14.,60.,length(vWorld.xz));
+  c=mix(c,vec3(.78,.76,.67),distanceFog*(1.-river));
+  gl_FragColor=vec4(c,1.);
+  #include <tonemapping_fragment>
+  #include <colorspace_fragment>
+}`;
+const fallVertex = `varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`;
+const fallFragment = `uniform float time;varying vec2 vUv;
+void main(){
+  float strands=sin(vUv.x*85.+sin(vUv.y*8.+time*3.));
+  float drops=pow(max(0.,sin(vUv.y*32.+time*11.+sin(vUv.x*53.)*2.)),5.);
+  vec3 c=mix(vec3(.40,.68,.65),vec3(.88,.96,.85),drops*.75+strands*.12+.2);
+  gl_FragColor=vec4(c,.78+drops*.2);
+  #include <tonemapping_fragment>
+  #include <colorspace_fragment>
+}`;
 export function Water({ motion }) {
   const sea = useRef(),
     stream = useRef(),
     fall = useRef(),
+    ripples = useRef(),
     clock = useRef(0);
   const riverGeo = useMemo(() => {
     const vs = [];
@@ -266,8 +324,12 @@ export function Water({ motion }) {
       clock.current += Math.min(delta, 0.06);
       uniforms.time.value = clock.current;
     }
-    if (fall.current)
-      fall.current.material.opacity = 0.73 + Math.sin(clock.current * 2) * 0.06;
+    if (ripples.current)
+      ripples.current.children.forEach((ripple, i) => {
+        const phase = (clock.current * 0.65 + i / 3) % 1;
+        ripple.scale.setScalar(0.4 + phase * 1.35);
+        ripple.material.opacity = (1 - phase) * 0.65;
+      });
   });
   return (
     <group>
@@ -290,36 +352,31 @@ export function Water({ motion }) {
       <group position={[riverX(7.55), -1.39, 7.57]}>
         <mesh ref={fall} rotation={[-0.09, 0, 0]}>
           <planeGeometry args={[1.1, 2.5, 8, 16]} />
-          <meshBasicMaterial
-            color="#b8d9cb"
+          <shaderMaterial
+            vertexShader={fallVertex}
+            fragmentShader={fallFragment}
+            uniforms={uniforms}
             transparent
-            opacity={0.8}
             side={THREE.DoubleSide}
+            depthWrite={false}
           />
         </mesh>
-        {Array.from({ length: 12 }, (_, i) => (
-          <mesh
-            key={i}
-            position={[(i - 5.5) * 0.085, 0, 0.023 + (i % 3) * 0.008]}
-          >
-            <planeGeometry args={[0.018, 2.28 - (i % 3) * 0.07]} />
-            <meshBasicMaterial color="#e1ebd2" transparent opacity={0.38} />
-          </mesh>
-        ))}
-        {[0.3, 0.55, 0.85].map((r, i) => (
-          <mesh
-            key={r}
-            position={[0, -1.1, 0.12 + i * 0.19]}
-            rotation={[-Math.PI / 2, 0, 0]}
-          >
-            <ringGeometry args={[r, r + 0.035, 40]} />
-            <meshBasicMaterial
-              color="#d8e3c7"
-              transparent
-              opacity={0.45 - i * 0.1}
-            />
-          </mesh>
-        ))}
+        <group ref={ripples}>
+          {[0.3, 0.55, 0.85].map((r, i) => (
+            <mesh
+              key={r}
+              position={[0, -1.1, 0.12 + i * 0.19]}
+              rotation={[-Math.PI / 2, 0, 0]}
+            >
+              <ringGeometry args={[r, r + 0.035, 40]} />
+              <meshBasicMaterial
+                color="#d8e3c7"
+                transparent
+                opacity={0.45 - i * 0.1}
+              />
+            </mesh>
+          ))}
+        </group>
       </group>
     </group>
   );

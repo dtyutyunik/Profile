@@ -35,11 +35,19 @@ The scene uses local geometry and CanvasTexture signage. It does not fetch a rem
 
 ## Visual QA, September 2026
 
-- Production build passes; application JavaScript is approximately 271 kB gzipped.
-- Seven application interaction tests pass, including all destinations, project selection, career progression, Escape, and pause/resume state.
+- Production build passes; application JavaScript is approximately 273 kB gzipped.
+- Eight application interaction tests pass, including all destinations, project selection, career progression, Escape, and pause/resume state.
 - Authored scene export: 49 mesh batches, 98,064 triangles; finite coordinates, matching vertex colors, and valid indices checked. This includes the offline sea representation and is a structural budget, not a measured GPU draw count.
 - Scene composition was inspected with CPU renders of the actual authored meshes. Fallback views were compressed to WebP and included under `public/world-stills`.
 - Desktop and phone browser checks exercise the illustrated fallback, content navigation, and responsive layouts. The available cloud browser disables WebGL, so live shader rendering, animation smoothness, context restoration, Safari behavior, and physical-phone GPU performance still need validation on a WebGL-capable device.
 - The supplied resume grounds career copy and metrics: seven years at Fubo since July 2019, 60% less troubleshooting, three junior engineers mentored. The unsupported 85% figure was removed. The resume PDF and phone number are not included in the public source.
 
 The existing custom-domain host is managed separately from this repository. This change does not alter hosting or deploy automatically.
+
+## Impact and motion refinement
+
+Overview highlights now link directly to the relevant career act or project. The career reel separates founder partnerships, production OpenAI classification, and custom MCP / Claude / Cursor tooling. Acts III and IV have no project CTA because these are work-based systems without public links. Internal project actions open a topic-specific email draft; ReliveInColor links to the live product. Travel content is personal and concrete, with a route into the travel tools.
+
+The classifier's processing volume is not quantified: a hypothetical 1M-user base with a 10–15% issue rate is not evidence of actual tool throughput. Early-career figures (20% onboarding, 27% engagement, 15% click-through) come from the supplied resume.
+
+Ambient motion now includes balloon drift, boat bobbing and drift, three animated agents, directional river highlights, descending waterfall streaks, and expanding splash rings. Clicking the balloon opens Traveler; the walking agent opens Workshop. Pause, reduced motion, and hidden-tab scheduling remain in place. Live WebGL animation still requires device validation; the no-WebGL fallback remains a still render.

@@ -39,6 +39,18 @@ function App() {
     if (id !== "workshop") setActiveProject(null);
   };
 
+  const openProject = (id) => {
+    setActiveDestination("workshop");
+    setActiveProject(id);
+  };
+  const openHighlight = (highlight) => {
+    if (highlight.projectId) openProject(highlight.projectId);
+    else {
+      navigate("cinema");
+      setCareerAct(highlight.act);
+    }
+  };
+
   const activeData = useMemo(
     () =>
       WORLD_DESTINATIONS.find((item) => item.id === activeDestination) || null,
@@ -75,6 +87,7 @@ function App() {
         onNavigate={navigate}
       />
 
+      <div className="overview-content" hidden={activeDestination !== "home"}>
       <section
         className={`hero-copy ${activeDestination !== "home" ? "hero-copy--compact" : ""}`}
         aria-label="Introduction"
@@ -88,23 +101,25 @@ function App() {
           <em>curiosity.</em>
         </h1>
         <p>
-          Senior frontend engineer. AI tinkerer.
-          <br />I turn complex problems into useful, human experiences. Welcome
-          to my corner of the world.
+          Senior frontend & AI product engineer.
+          <br />{" "}I build interfaces, production AI, and tools that turn complex
+          workflows into useful products.
         </p>
         <div className="hero-actions">
-          <button type="button" onClick={() => navigate("workshop")}>
-            Explore my work <span aria-hidden="true">↗</span>
+          <button type="button" onClick={() => openProject("support")}>
+            Explore my AI work <span aria-hidden="true">↗</span>
           </button>
           <a href="mailto:dmitriy.tyutyunik@gmail.com">
-            Let’s talk <span aria-hidden="true">↗</span>
+            Let’s build something <span aria-hidden="true">↗</span>
           </a>
         </div>
       </section>
 
       {activeDestination === "home" && (
-        <CareerMetrics metrics={CAREER_METRICS} />
+        <CareerMetrics metrics={CAREER_METRICS} onSelect={openHighlight} />
       )}
+
+      </div>
 
       {activeDestination === "workshop" && (
         <WorkshopDock
@@ -125,8 +140,9 @@ function App() {
       {activeDestination === "traveler" && (
         <ShowcasePanel
           title="Traveler Overlook"
-          eyebrow="Experience becomes context"
+          eyebrow="Curiosity beyond the screen"
           items={TRAVEL_HIGHLIGHTS}
+          onExplore={() => openProject("travel-agent")}
         />
       )}
       {activeDestination === "publisher" && (
