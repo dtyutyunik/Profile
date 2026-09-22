@@ -44,7 +44,14 @@ The scene uses local geometry and CanvasTexture signage. It does not fetch a rem
 
 ## Deployment
 
-Pushes to `master` build the React app and publish `client/build` through GitHub Pages. The deployment workflow preserves `dmitriy-tyutyunik.com` as the custom domain through `client/public/CNAME`.
+The live site is hosted on Surge. After updating `master`, build and publish from the client directory:
+
+```sh
+cd client
+npm ci
+npm run build
+npx surge@latest ./build https://dmitriy-tyutyunik.com
+```
 
 ## Impact and motion refinement
 
