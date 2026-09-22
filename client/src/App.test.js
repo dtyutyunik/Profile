@@ -80,9 +80,10 @@ test("traveler and publisher destinations expose their stories", async () => {
   expect(
     screen.getByRole("heading", { name: /ten days before troy/i }),
   ).toBeInTheDocument();
-  expect(
-    screen.getByRole("link", { name: /amazon author page/i }),
-  ).toBeInTheDocument();
+  expect(screen.getByRole("link", { name: /amazon author page/i })).toHaveAttribute(
+    "href",
+    "https://www.amazon.com/stores/Dmitriy-Tyutyunik/author/B0HGTL13YY",
+  );
 });
 
 test("workshop projects are keyboard-accessible outside the 3D canvas", async () => {

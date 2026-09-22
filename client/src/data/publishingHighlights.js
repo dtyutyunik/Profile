@@ -5,7 +5,7 @@ export const PUBLISHING_HIGHLIGHTS = [
   {
     title: 'Amazon author page',
     text: 'Browse the published catalog on Amazon.',
-    href: 'https://www.amazon.it/stores/Dmitriy-Tyutyunik/author/B0HGTL13YY',
+    href: 'https://www.amazon.com/stores/Dmitriy-Tyutyunik/author/B0HGTL13YY',
     linkLabel: 'View books on Amazon'
   },
   {
