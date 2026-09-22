@@ -42,7 +42,9 @@ The scene uses local geometry and CanvasTexture signage. It does not fetch a rem
 - Desktop and phone browser checks exercise the illustrated fallback, content navigation, and responsive layouts. The available cloud browser disables WebGL, so live shader rendering, animation smoothness, context restoration, Safari behavior, and physical-phone GPU performance still need validation on a WebGL-capable device.
 - The supplied resume grounds career copy and metrics: seven years at Fubo since July 2019, 60% less troubleshooting, three junior engineers mentored. The unsupported 85% figure was removed. The resume PDF and phone number are not included in the public source.
 
-The existing custom-domain host is managed separately from this repository. This change does not alter hosting or deploy automatically.
+## Deployment
+
+Pushes to `master` build the React app and publish `client/build` through GitHub Pages. The deployment workflow preserves `dmitriy-tyutyunik.com` as the custom domain through `client/public/CNAME`.
 
 ## Impact and motion refinement
 
