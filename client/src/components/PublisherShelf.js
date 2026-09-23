@@ -5,8 +5,17 @@ function PublisherShelf({ books }) {
       <div className="publisher-shelf__header"><p>Published shelf</p><strong>{books.length} works</strong></div>
       <div className="publisher-shelf__books">
         {books.map((book,index)=><article key={book.title} style={{'--book-index':index}}>
-          <span>{String(index+1).padStart(2,'0')}</span>
-          <h3>{book.title}</h3><p>{book.series}</p>
+          <a
+            href={book.amazon}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Buy ${book.title} on Amazon`}
+          >
+            <span>{String(index+1).padStart(2,'0')}</span>
+            <h3>{book.title}</h3>
+            <p>{book.series}</p>
+            <strong>View on Amazon <span aria-hidden="true">↗</span></strong>
+          </a>
         </article>)}
       </div>
       <div className="publisher-shelf__links">

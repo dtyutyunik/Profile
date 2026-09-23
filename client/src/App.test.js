@@ -80,6 +80,15 @@ test("traveler and publisher destinations expose their stories", async () => {
   expect(
     screen.getByRole("heading", { name: /ten days before troy/i }),
   ).toBeInTheDocument();
+  expect(
+    screen.getByRole("link", { name: /buy ten days before troy on amazon/i }),
+  ).toHaveAttribute(
+    "href",
+    "https://www.amazon.com/s?k=Ten+Days+Before+Troy+Dmitriy+Tyutyunik&i=stripbooks",
+  );
+  expect(
+    screen.getAllByRole("link", { name: /buy .* on amazon/i }),
+  ).toHaveLength(6);
   expect(screen.getByRole("link", { name: /amazon author page/i })).toHaveAttribute(
     "href",
     "https://www.amazon.com/stores/Dmitriy-Tyutyunik/author/B0HGTL13YY",
